@@ -137,6 +137,12 @@ public class telaCadContato extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Complemento");
 
+        jtfComplemento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfComplementoActionPerformed(evt);
+            }
+        });
+
         jLabel13.setText("Observações:");
 
         jtaObservacao.setBackground(new java.awt.Color(171, 175, 186));
@@ -251,9 +257,9 @@ public class telaCadContato extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jcbSalvar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcbSalvar)
+                    .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -279,6 +285,10 @@ public class telaCadContato extends javax.swing.JInternalFrame {
     private void jcbUFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbUFActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbUFActionPerformed
+
+    private void jtfComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfComplementoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfComplementoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
