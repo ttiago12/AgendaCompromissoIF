@@ -35,6 +35,7 @@ public class telaContatos extends javax.swing.JInternalFrame {
         jbDeletar = new javax.swing.JButton();
         jbAlterar = new javax.swing.JButton();
 
+        setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);

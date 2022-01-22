@@ -60,6 +60,7 @@ public class telaCadContato extends javax.swing.JInternalFrame {
 
         jLabel10.setText("jLabel10");
 
+        setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
@@ -154,6 +155,11 @@ public class telaCadContato extends javax.swing.JInternalFrame {
         jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/cancelar.png"))); // NOI18N
         jbCancelar.setText("CANCELAR");
         jbCancelar.setToolTipText("");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jcbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Entrar.png"))); // NOI18N
         jcbSalvar.setText("SALVAR");
@@ -289,6 +295,11 @@ public class telaCadContato extends javax.swing.JInternalFrame {
     private void jtfComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfComplementoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfComplementoActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
