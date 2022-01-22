@@ -50,12 +50,22 @@ public class telaLogin extends javax.swing.JFrame {
 
         jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/cancelar.png"))); // NOI18N
         jbCancelar.setText("CANCELAR");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jbNovoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/funcionario2.png"))); // NOI18N
         jbNovoUsuario.setText("NOVO USUARIO");
 
         jbAcessarSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Entrar.png"))); // NOI18N
         jbAcessarSistema.setText("ACESSAR");
+        jbAcessarSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAcessarSistemaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -101,6 +111,18 @@ public class telaLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        //fechar tela
+        this.dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jbAcessarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAcessarSistemaActionPerformed
+        //chama tela principal
+        telaPrincipal tela = new telaPrincipal();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbAcessarSistemaActionPerformed
 
     /**
      * @param args the command line arguments

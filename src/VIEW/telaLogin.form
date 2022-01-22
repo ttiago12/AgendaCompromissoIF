@@ -101,6 +101,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="CANCELAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCancelarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbNovoUsuario">
       <Properties>
@@ -117,6 +120,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="ACESSAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbAcessarSistemaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
