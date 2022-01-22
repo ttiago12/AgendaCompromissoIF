@@ -107,6 +107,11 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
 
         jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/cancelar.png"))); // NOI18N
         jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Descricão :");
 
@@ -194,6 +199,11 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
     private void JbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbSalvarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_JbSalvarActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

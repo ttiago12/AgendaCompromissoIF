@@ -61,6 +61,8 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
         jtfSenha = new javax.swing.JPasswordField();
         jbCancelar = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
+        jlbCancelar = new javax.swing.JButton();
+        jlbSalvar = new javax.swing.JButton();
 
         jLabel11.setText("jLabel11");
 
@@ -286,11 +288,10 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
                             .addComponent(jLabel10)
                             .addComponent(jcbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(40, 40, 40)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel17)
                     .addComponent(jtfComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dados Endereço", jPanel1);
@@ -358,6 +359,12 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
 
         jTabbedPane1.addTab("Dados do Usuario", jPanel2);
 
+        jlbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/cancelar.png"))); // NOI18N
+        jlbCancelar.setText("Cancelar");
+
+        jlbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/gravar.png"))); // NOI18N
+        jlbSalvar.setText("Salvar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -366,13 +373,23 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jlbCancelar)
+                .addGap(46, 46, 46)
+                .addComponent(jlbSalvar)
+                .addGap(76, 76, 76))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlbCancelar)
+                    .addComponent(jlbSalvar))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -445,6 +462,8 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalvar;
     private javax.swing.JComboBox<String> jcbCidade;
     private javax.swing.JComboBox<String> jcbUF;
+    private javax.swing.JButton jlbCancelar;
+    private javax.swing.JButton jlbSalvar;
     private javax.swing.JTextField jtfBairro;
     private javax.swing.JFormattedTextField jtfCEP;
     private javax.swing.JFormattedTextField jtfCelular;
