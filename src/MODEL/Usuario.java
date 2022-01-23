@@ -9,7 +9,7 @@ package MODEL;
  *
  * @author tiago.alvim
  */
-public class Usuario {
+public class Usuario extends Pessoa{
     
     private String cpf;
     private String senha;

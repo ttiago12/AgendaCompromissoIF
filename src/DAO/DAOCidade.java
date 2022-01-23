@@ -12,11 +12,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+
 public class DAOCidade extends DAOConexao {
     
     //metodo responsavel por retornar os dados de todas as cidades cadasradas no banco de dados
     
-    public ArrayList<Cidade> buscarCidades (String UF){
+    public ArrayList<Cidade> buscarCidade (String UF){
         
             //conectar com banco  de dados (metodo que criamos la nem conexao)
             conectar();
@@ -51,14 +52,14 @@ public class DAOCidade extends DAOConexao {
     }
     
     public Cidade buscarCidade(int codigo){
+        
         conectar();
-
         ResultSet rs;
 
         Cidade cid = new Cidade();
             
         try {
-            rs = comando.executeQuery("SELECT * FROM cidades WHERE idCidade = '" + codigo + "';");
+            rs = comando.executeQuery("SELECT * FROM CIDADES WHERE idCidade = '" + codigo + "';");
             
             while (rs.next()) {
                 cid.setCodigo(rs.getInt("idCidade"));
@@ -84,7 +85,7 @@ public class DAOCidade extends DAOConexao {
         int codigoCidade = 0;
             
         try {
-            rs = comando.executeQuery("SELECT idCidade FROM cidades WHERE nomeCidade = '" + nome + "' AND ufCidade = '" + uf + "';");
+            rs = comando.executeQuery("SELECT idCidade FROM CIDADES WHERE nomeCidade = '" + nome + "' AND ufCidade = '" + uf + "';");
             
             while (rs.next()) {
                 codigoCidade = rs.getInt("idCidade");
@@ -99,4 +100,31 @@ public class DAOCidade extends DAOConexao {
             return 0;
         }
     }
+    
+    public Cidade buscarCidades(String uf, String nome){
+        
+        conectar();
+        ResultSet rs;
+
+        Cidade cid = new Cidade();
+            
+        try {
+            rs = comando.executeQuery("SELECT * FROM CIDADES WHERE ufCidade = '" +uf+ "'AND  nomeCidade = '"+nome+"';");
+            
+            while (rs.next()) {
+                cid.setCodigo(rs.getInt("idCidade"));
+                cid.setNome(rs.getString("ufCidade"));
+                cid.setNome(rs.getString("nomeCidade"));
+            }
+            fechar();
+            
+            return cid;
+        } catch (SQLException ex) {
+            imprimirErros("Erro ao buscar cidade pelo nome1. ", ex.getMessage());
+            fechar();
+            
+            return null;
+        }      
+    }  
+    
 }

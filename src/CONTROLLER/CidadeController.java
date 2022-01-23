@@ -19,15 +19,19 @@ public class CidadeController {
         dao = new DAOCidade();
     }
     
-    public Cidade buscarCidade(int codigo){
+    public Cidade buscarCidades(int codigo){
         return dao.buscarCidade(codigo);
     }
     
     public ArrayList<Cidade> buscarCidades(String uf){
-        return dao.buscarCidades(uf);
+        return dao.buscarCidade(uf);
     }
     
     public int getIdCidade(String uf, String nome){
         return dao.getIdCidade(nome, uf);
+    }
+    
+    public Cidade buscarCidade(String uf , String nome){
+        return dao.buscarCidades(uf, nome);
     }
 }

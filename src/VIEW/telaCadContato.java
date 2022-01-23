@@ -4,6 +4,11 @@
  */
 package VIEW;
 
+import CONTROLLER.CidadeController;
+import MODEL.Cidade;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 
@@ -16,7 +21,24 @@ public class telaCadContato extends javax.swing.JInternalFrame {
     public telaCadContato() {
         initComponents();
     }
-
+    
+    public void listarCidades(String uf){
+        
+        CidadeController controller = new CidadeController();
+        
+        ArrayList<Cidade> cidades =  controller.buscarCidades(uf);
+        
+        //se tiver vazia
+        if(cidades.isEmpty()){
+            JOptionPane.showMessageDialog(null , "Não há cidades cadastradas neste estado", "Mensagem do Sistema",0);
+        }else{
+            jcbCidade.removeAllItems();
+            for (Cidade cid : cidades){
+                jcbCidade.addItem(cid.getNome());
+            }
+            jcbCidade.setEnabled(true);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,7 +67,7 @@ public class telaCadContato extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jcbUF = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        JcbCidade = new javax.swing.JComboBox<>();
+        jcbCidade = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jtfCEP = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -120,6 +142,11 @@ public class telaCadContato extends javax.swing.JInternalFrame {
         jLabel8.setText("Estado:");
 
         jcbUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UF", "AC", "AL", "AP", "AM", "BA", "CE ", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR ", "PE", "PI", "RJ", "RN", "RS", "RO", "RR ", "SC" }));
+        jcbUF.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbUFItemStateChanged(evt);
+            }
+        });
         jcbUF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbUFActionPerformed(evt);
@@ -192,7 +219,7 @@ public class telaCadContato extends javax.swing.JInternalFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jLabel9)
                                     .addGap(4, 4, 4)
-                                    .addComponent(JcbCidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jcbCidade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(jtfRua)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jtfBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,7 +278,7 @@ public class telaCadContato extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)
                     .addComponent(jcbUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(JcbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -301,9 +328,14 @@ public class telaCadContato extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jbCancelarActionPerformed
 
+    private void jcbUFItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbUFItemStateChanged
+        // TODO add your handling code here:
+        String uf = jcbUF.getSelectedItem().toString();
+        this.listarCidades(uf);
+    }//GEN-LAST:event_jcbUFItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> JcbCidade;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -320,6 +352,7 @@ public class telaCadContato extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbCancelar;
+    private javax.swing.JComboBox<String> jcbCidade;
     private javax.swing.JButton jcbSalvar;
     private javax.swing.JComboBox<String> jcbUF;
     private javax.swing.JTextArea jtaObservacao;
