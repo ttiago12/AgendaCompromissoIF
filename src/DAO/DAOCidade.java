@@ -16,7 +16,7 @@ public class DAOCidade extends DAOConexao {
     
     //metodo responsavel por retornar os dados de todas as cidades cadasradas no banco de dados
     
-    public ArrayList<Cidade> buscarCidade (String UF){
+    public ArrayList<Cidade> buscarCidades (String UF){
         
             //conectar com banco  de dados (metodo que criamos la nem conexao)
             conectar();
@@ -30,7 +30,7 @@ public class DAOCidade extends DAOConexao {
             //aspas simples sql
             //+concatena
         try {
-            rs = comando.executeQuery("SELECT * FROM cidades WHERE ufCidade = '" + UF + "';");
+            rs = comando.executeQuery("SELECT * FROM CIDADES WHERE ufCidade = '" + UF + "';");
             
             while (rs.next()) {
                 Cidade cid = new Cidade();

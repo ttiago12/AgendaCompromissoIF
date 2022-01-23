@@ -4,6 +4,11 @@
  */
 package VIEW;
 
+import CONTROLLER.CidadeController;
+import MODEL.Cidade;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 
@@ -15,6 +20,24 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
      */
     public telaCadUsuario() {
         initComponents();
+    }
+    
+    public void listarCidades(String uf){
+        
+        CidadeController controller = new CidadeController();
+        
+        ArrayList<Cidade> cidades =  controller.buscarCidades(uf);
+        
+        //se tiver vazia
+        if(cidades.isEmpty()){
+            JOptionPane.showMessageDialog(null , "Não há cidades cadastradas neste estado", "Mensagem do Sistema",0);
+        }else{
+            jcbCidade.removeAllItems();
+            for (Cidade cid : cidades){
+                jcbCidade.addItem(cid.getNome());
+            }
+            jcbCidade.setEnabled(true);
+        }
     }
 
     /**
@@ -191,6 +214,11 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
         });
 
         jcbUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UF", "AC", "AL", "AP", "AM", "BA", "CE ", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR ", "PE", "PI", "RJ", "RN", "RS", "RO", "RR ", "SC" }));
+        jcbUF.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jcbUFItemStateChanged(evt);
+            }
+        });
         jcbUF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbUFActionPerformed(evt);
@@ -444,6 +472,12 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jlbCancelarActionPerformed
+
+    private void jcbUFItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jcbUFItemStateChanged
+        
+        String uf = jcbUF.getSelectedItem().toString();
+        this.listarCidades(uf);
+    }//GEN-LAST:event_jcbUFItemStateChanged
 
 
     
