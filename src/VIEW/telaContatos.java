@@ -6,7 +6,7 @@ package VIEW;
 
 /**
  *
- * @author tux
+ * @author 
  */
 public class telaContatos extends javax.swing.JInternalFrame {
 

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author tux
+ * @author 
  */
 public class ConFactory {
     // variavel de conexao

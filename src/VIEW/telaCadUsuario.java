@@ -6,7 +6,7 @@ package VIEW;
 
 /**
  *
- * @author tux
+ * @author 
  */
 public class telaCadUsuario extends javax.swing.JInternalFrame {
 

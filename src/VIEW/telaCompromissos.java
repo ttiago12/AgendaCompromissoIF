@@ -6,7 +6,7 @@ package VIEW;
 
 /**
  *
- * @author tux
+ * @author 
  */
 public class telaCompromissos extends javax.swing.JInternalFrame {
 

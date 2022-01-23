@@ -6,7 +6,7 @@ package MODEL;
 
 /**
  *
- * @author tux
+ * @author 
  */
 public class CONTATO extends Pessoa {
     private String observacoes;
