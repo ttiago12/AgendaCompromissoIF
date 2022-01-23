@@ -361,6 +361,11 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
 
         jlbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/cancelar.png"))); // NOI18N
         jlbCancelar.setText("Cancelar");
+        jlbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jlbCancelarActionPerformed(evt);
+            }
+        });
 
         jlbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/gravar.png"))); // NOI18N
         jlbSalvar.setText("Salvar");
@@ -434,6 +439,11 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jlbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jlbCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jlbCancelarActionPerformed
 
 
     

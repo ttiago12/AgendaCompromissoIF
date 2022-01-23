@@ -128,6 +128,11 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
 
         jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/cancelar.png"))); // NOI18N
         jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         jbDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/excluir.png"))); // NOI18N
         jbDeletar.setText("Deletar");
@@ -234,6 +239,11 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbAlterarActionPerformed
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
