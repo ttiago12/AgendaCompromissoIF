@@ -23,17 +23,20 @@ public class DAOUsuario extends DAOConexao{
             conectar();
             
             //insere os dados no banco e dados
-            String sql = "INSERT INTO usuarios (nomeUsuario, telefoneUsuario, celularUsuario,"
+            String sql = "INSERT INTO USUARIOS (nomeUsuario, telefoneUsuario, celularUsuario,"
                     + " emailUsuario, ruaUsuario, bairroUsuario,"
                     + "numeroUsuario, cepUsuario, complementoUsuario, cpfUsuario, "
                     + "senhaUsuario, idCidadeUsuario) VALUES"
-                    + "( '"+usuario.getNome()+"','"+usuario.getTelefone()+"','"
-                    + "'"+usuario.getCelular()+"','"+usuario.getEmail()+"',"
-                    + "'"+usuario.getRua()+"','"+usuario.getBairro()+"','"
-                    + "'"+usuario.getNumero()+"','"+usuario.getComplemento()+"',"
-                    + "'"+usuario.getCep()+"','"+usuario.getCpf()+"',"
+                    
+                    //'"+objeto.get---()+'",'"
+                    //+objeto.get---()+,'"
+                    + "( '"+usuario.getNome()+"','"+usuario.getTelefone()+"','"			
+                    +usuario.getCelular()+"','"+usuario.getEmail()+"','"
+                    +usuario.getRua()+"','"+usuario.getBairro()+"','"
+                    +usuario.getNumero()+"','"+usuario.getComplemento()+"','"
+                    +usuario.getCep()+"','"+usuario.getCpf()+"','"
                     //objeto do tipo cidade e pegamos o codigo dentro dele
-                    + "'"+usuario.getSenha()+"','"+usuario.getCidade().getCodigo()+"');";
+                    +usuario.getSenha()+"','"+usuario.getCidade().getCodigo()+"');";
         try {    
             comando.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"USUARIO CADASTRADO COM SUCESSO","mENSAGEM DO SISTEMA", 0);
@@ -45,5 +48,13 @@ public class DAOUsuario extends DAOConexao{
                       
     }
     
+    //metodo de verificacao de senha
     
+    public Usuario verificarUsuario(String login , String senha){
+        conectar();
+        
+        ResultSet rs;
+        
+        
+    }
 }
