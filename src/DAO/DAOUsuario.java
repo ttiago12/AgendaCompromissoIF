@@ -55,6 +55,7 @@ public class DAOUsuario extends DAOConexao{
         
         ResultSet rs;
         
+        String sql
         
     }
 }
