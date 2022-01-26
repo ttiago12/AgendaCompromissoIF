@@ -6,7 +6,9 @@
 
 package DAO;
 
+import MODEL.Cidade;
 import MODEL.Usuario;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,10 +54,49 @@ public class DAOUsuario extends DAOConexao{
     
     public Usuario verificarUsuario(String login , String senha){
         conectar();
-        
+
         ResultSet rs;
+
+        String sql = "SELECT * FROM usuarios INNER JOIN cidades ON idCidadeUsuario = idCidade WHERE cpfUsuario = '" + login + "' AND "
+                + "senhaUsuario = '" + senha +"';";
+
+        Usuario user = new Usuario();
         
-        String sql
+        try {    
+            rs = comando.executeQuery(sql);
+            
+            while (rs.next()) {            
+                user.setCodigo(rs.getInt("idUsuario"));
+                user.setNome(rs.getString("nomeUsuario"));
+                user.setTelefone(rs.getString("telefoneUsuario"));
+                user.setCelular(rs.getString("celularUsuario"));
+                user.setEmail(rs.getString("emailUsuario"));
+                user.setRua(rs.getString("ruaUsuario"));
+                user.setNumero(rs.getInt("numeroUsuario"));
+                user.setBairro(rs.getString("bairroUsuario"));
+                user.setCep(rs.getString("cepUsuario"));
+                user.setComplemento(rs.getString("complementoUsuario"));
+                user.setCpf(rs.getString("cpfUsuario"));
+                user.setSenha(rs.getString("senhaUsuario"));
+                
+                Cidade cid = new Cidade();
+                
+                cid.setCodigo(rs.getInt("idCidade"));
+                cid.setUf(rs.getString("ufCidade"));
+                cid.setNome(rs.getString("nomeCidade"));
+                
+                user.setCidade(cid);
+            }
+            fechar();
+            
+            return user;
+        } catch (SQLException ex) {
+            imprimirErros("Erro ao validar usuário. ", ex.getMessage());
+            fechar();
+            
+            return null;
+        }
+
         
     }
 }
