@@ -5,6 +5,10 @@
  */
 package VIEW;
 
+import CONTROLLER.UsuarioController;
+import MODEL.Usuario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tiago.alvim
@@ -58,6 +62,11 @@ public class telaLogin extends javax.swing.JFrame {
 
         jbNovoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/funcionario2.png"))); // NOI18N
         jbNovoUsuario.setText("NOVO USUARIO");
+        jbNovoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNovoUsuarioActionPerformed(evt);
+            }
+        });
 
         jbAcessarSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Entrar.png"))); // NOI18N
         jbAcessarSistema.setText("ACESSAR");
@@ -118,12 +127,41 @@ public class telaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbAcessarSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAcessarSistemaActionPerformed
-        //chama tela principal
-        telaPrincipal tela = new telaPrincipal();
-        tela.setVisible(true);
-        this.dispose();
+        String login = jtfLogin.getText();
+        String senha = jtfSenha.getText();
+        
+        UsuarioController controller = new UsuarioController();
+        
+        Usuario user =  controller.verificarUsuario(login, senha);
+        
+        if(user.getCodigo() == 0){
+        JOptionPane.showMessageDialog(null,"Usuario ou senha invalido");
+        }else{            
+        //Chamando a Tela Principal
+            telaPrincipal tela = new telaPrincipal(user.getCodigo());
+            tela.setVisible(true);
+            this.dispose();     
+        }     
     }//GEN-LAST:event_jbAcessarSistemaActionPerformed
 
+    private void jbNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoUsuarioActionPerformed
+        // TODO add your handling code here:
+       
+        //instanciamos a tela principal
+        telaPrincipal tela = new telaPrincipal(0);
+        //desativamoss o menu para que o usuario acesse somente a tela de usuario
+        tela.jMenuPrincipal.setEnabled(false);
+        
+        
+        //adicionamos a nossa area de trabalho
+        telaCadUsuario telaCadUser = new telaCadUsuario();
+        tela.jdpPrincipal.add(telaCadUser);
+        tela.setVisible(true);
+        telaCadUser.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbNovoUsuarioActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */

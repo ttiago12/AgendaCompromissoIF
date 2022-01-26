@@ -57,7 +57,7 @@ public class DAOUsuario extends DAOConexao{
 
         ResultSet rs;
 
-        String sql = "SELECT * FROM usuarios INNER JOIN cidades ON idCidadeUsuario = idCidade WHERE cpfUsuario = '" + login + "' AND "
+        String sql = "SELECT * FROM USUARIOS INNER JOIN CIDADES ON idCidadeUsuario = idCidade WHERE cpfUsuario = '" + login + "' AND "
                 + "senhaUsuario = '" + senha +"';";
 
         Usuario user = new Usuario();
@@ -92,6 +92,55 @@ public class DAOUsuario extends DAOConexao{
             return user;
         } catch (SQLException ex) {
             imprimirErros("Erro ao validar usuário. ", ex.getMessage());
+            fechar();
+            
+            return null;
+        }
+
+        
+    }
+    
+    //metodo para buscar o usuario pelo codigo 
+    
+    public Usuario buscarUsuario(int codigo){
+        conectar();
+
+        ResultSet rs;
+
+        String sql = "SELECT * FROM USUARIOS INNER JOIN CIDADES ON idCidadeUsuario = idCidade WHERE idUsuario = '" + codigo + "';";
+
+        Usuario user = new Usuario();
+        
+        try {    
+            rs = comando.executeQuery(sql);
+            
+            while (rs.next()) {            
+                user.setCodigo(rs.getInt("idUsuario"));
+                user.setNome(rs.getString("nomeUsuario"));
+                user.setTelefone(rs.getString("telefoneUsuario"));
+                user.setCelular(rs.getString("celularUsuario"));
+                user.setEmail(rs.getString("emailUsuario"));
+                user.setRua(rs.getString("ruaUsuario"));
+                user.setNumero(rs.getInt("numeroUsuario"));
+                user.setBairro(rs.getString("bairroUsuario"));
+                user.setCep(rs.getString("cepUsuario"));
+                user.setComplemento(rs.getString("complementoUsuario"));
+                user.setCpf(rs.getString("cpfUsuario"));
+                user.setSenha(rs.getString("senhaUsuario"));
+                
+                Cidade cid = new Cidade();
+                
+                cid.setCodigo(rs.getInt("idCidade"));
+                cid.setUf(rs.getString("ufCidade"));
+                cid.setNome(rs.getString("nomeCidade"));
+                
+                user.setCidade(cid);
+            }
+            fechar();
+            
+            return user;
+        } catch (SQLException ex) {
+            imprimirErros("Erro ao buscar usuário pelo codigo", ex.getMessage());
             fechar();
             
             return null;

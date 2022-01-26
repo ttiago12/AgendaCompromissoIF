@@ -5,6 +5,8 @@
  */
 package VIEW;
 
+import CONTROLLER.UsuarioController;
+import MODEL.Usuario;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,7 +22,9 @@ public class telaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form telaPrincipal
      */
-    public telaPrincipal() {
+    
+     int idUsuario;
+    public telaPrincipal(int idUsuario) {
         initComponents();
         
         //abrir tela maximizada
@@ -30,6 +34,14 @@ public class telaPrincipal extends javax.swing.JFrame {
         //chama os metodos de data e hora
         jlbDatahora.setText(this.getDate()+"---"+ this.getTime());
         
+        
+        this.idUsuario = idUsuario;
+        
+        UsuarioController controller = new UsuarioController();
+        
+        Usuario user = controller.buscarUsuario(this.idUsuario);
+        
+        JlUsuario.setText(user.getNome());
     }
 
     /**
@@ -50,7 +62,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jdpPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        jMenuPrincipal = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -124,7 +136,7 @@ public class telaPrincipal extends javax.swing.JFrame {
             .addGap(0, 289, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Agenda");
+        jMenuPrincipal.setText("Agenda");
 
         jMenu3.setText("Contatos");
 
@@ -144,7 +156,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem2);
 
-        jMenu1.add(jMenu3);
+        jMenuPrincipal.add(jMenu3);
 
         jMenu4.setText("Compromissos");
 
@@ -164,7 +176,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem4);
 
-        jMenu1.add(jMenu4);
+        jMenuPrincipal.add(jMenu4);
 
         jMenuItem5.setText("Meus Dados Pessoais");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
@@ -172,8 +184,8 @@ public class telaPrincipal extends javax.swing.JFrame {
                 jMenuItem5ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem5);
-        jMenu1.add(jSeparator1);
+        jMenuPrincipal.add(jMenuItem5);
+        jMenuPrincipal.add(jSeparator1);
 
         jMenuItem7.setText("Alterar");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
@@ -181,7 +193,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 jMenuItem7ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem7);
+        jMenuPrincipal.add(jMenuItem7);
 
         jMenuItem6.setText("Sair");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -189,9 +201,9 @@ public class telaPrincipal extends javax.swing.JFrame {
                 jMenuItem6ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem6);
+        jMenuPrincipal.add(jMenuItem6);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenuPrincipal);
 
         setJMenuBar(jMenuBar1);
 
@@ -264,37 +276,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new telaPrincipal().setVisible(true);
-            }
-        });
-    }
+    
     
     public String getDate(){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -313,7 +295,6 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel JlUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
@@ -324,11 +305,12 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    protected javax.swing.JMenu jMenuPrincipal;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTree jTree1;
-    private javax.swing.JDesktopPane jdpPrincipal;
+    public javax.swing.JDesktopPane jdpPrincipal;
     private javax.swing.JLabel jlbDatahora;
     // End of variables declaration//GEN-END:variables
 }

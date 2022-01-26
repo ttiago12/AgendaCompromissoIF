@@ -18,4 +18,12 @@ public class UsuarioController {
     public void inserir(Usuario usuario){
         dao.inserir(usuario);
     }
+    
+    public Usuario verificarUsuario(String login , String senha){
+        return dao.verificarUsuario(login, senha);
+    }
+    
+    public Usuario buscarUsuario(int codigo){
+        return dao.buscarUsuario(codigo);
+    }
 }
