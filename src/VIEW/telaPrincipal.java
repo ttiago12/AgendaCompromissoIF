@@ -23,7 +23,7 @@ public class telaPrincipal extends javax.swing.JFrame {
      * Creates new form telaPrincipal
      */
     
-     int idUsuario;
+    int idUsuario;
     public telaPrincipal(int idUsuario) {
         initComponents();
         
@@ -41,7 +41,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         
         Usuario user = controller.buscarUsuario(this.idUsuario);
         
-        JlUsuario.setText(user.getNome());
+        jlUsuario.setText(user.getNome());
     }
 
     /**
@@ -58,7 +58,7 @@ public class telaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jlbDatahora = new javax.swing.JLabel();
-        JlUsuario = new javax.swing.JLabel();
+        jlUsuario = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jdpPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -86,10 +86,10 @@ public class telaPrincipal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Usuário:");
 
-        JlUsuario.setBackground(new java.awt.Color(153, 204, 255));
-        JlUsuario.setForeground(new java.awt.Color(0, 51, 255));
-        JlUsuario.setText("jLabel2");
-        JlUsuario.setDoubleBuffered(true);
+        jlUsuario.setBackground(new java.awt.Color(153, 204, 255));
+        jlUsuario.setForeground(new java.awt.Color(0, 51, 255));
+        jlUsuario.setText("jLabel2");
+        jlUsuario.setDoubleBuffered(true);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -103,7 +103,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -117,7 +117,7 @@ public class telaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(JlUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jlUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jlbDatahora, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -255,7 +255,7 @@ public class telaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         // TODO add your handling code here:
-        telaCadUsuario tela = new telaCadUsuario();
+        telaCadUsuario tela = new telaCadUsuario(0, this.idUsuario , this);
         tela.setVisible(true);
         jdpPrincipal.add(tela);
         
@@ -292,7 +292,6 @@ public class telaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel JlUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu3;
@@ -311,6 +310,7 @@ public class telaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTree jTree1;
     public javax.swing.JDesktopPane jdpPrincipal;
+    public javax.swing.JLabel jlUsuario;
     private javax.swing.JLabel jlbDatahora;
     // End of variables declaration//GEN-END:variables
 }

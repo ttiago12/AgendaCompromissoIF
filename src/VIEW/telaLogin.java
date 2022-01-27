@@ -154,10 +154,13 @@ public class telaLogin extends javax.swing.JFrame {
         
         
         //adicionamos a nossa area de trabalho
-        telaCadUsuario telaCadUser = new telaCadUsuario();
-        tela.jdpPrincipal.add(telaCadUser);
+        
+        
+        telaCadUsuario telacadUser = new telaCadUsuario(1,0, tela);
+        tela.jdpPrincipal.add(telacadUser);
         tela.setVisible(true);
-        telaCadUser.setVisible(true);
+        telacadUser.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_jbNovoUsuarioActionPerformed
 

@@ -11,6 +11,7 @@ import MODEL.Usuario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
+
 /**
  *
  * @author 
@@ -20,9 +21,43 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
     /**
      * Creates new form telaCadUsuario
      */
-    public telaCadUsuario() {
+    
+    public telaPrincipal telaPrincipal;
+    private int usuarioNovo;
+    
+    
+    public telaCadUsuario(int usuarioNovo, int idUsuario, telaPrincipal telaPrincipal) {
         initComponents();
+        
+        
+        this.telaPrincipal = telaPrincipal;
+        this.usuarioNovo = usuarioNovo;
+        
+        
+        if(usuarioNovo == 0){
+            UsuarioController controller = new UsuarioController();
+            Usuario user = controller.buscarUsuario(idUsuario);
+            
+            jtfCodigo.setText(Integer.toString(user.getCodigo()));
+            jtfNome.setText(user.getNome());
+            jtfEmail.setText(user.getEmail());
+            jtfTelefone.setText(user.getTelefone());
+            jtfCelular.setText(user.getCelular());
+            jtfRua.setText(user.getRua());
+            jtfBairro.setText(user.getBairro());
+            jtfCEP.setText(user.getCep());
+            jtfNumero.setText(Integer.toString(user.getNumero()));
+            jtfComplemento.setText(user.getComplemento());
+            jtfCpf.setText(user.getCpf());
+            jtfSenha.setText(user.getSenha());
+            jtfEmail.setText(user.getEmail());
+            
+            
+            jcbUF.setSelectedItem(user.getCidade().getUf());
+            jcbCidade.setSelectedItem(user.getCidade().getNome());
+        }
     }
+    
     
     public void listarCidades(String uf){
         
@@ -514,7 +549,17 @@ public class telaCadUsuario extends javax.swing.JInternalFrame {
         } else {
             UsuarioController controllerUsuario = new UsuarioController();
              
-            controllerUsuario.inserir(user);
+            if(usuarioNovo != 0 ){
+               controllerUsuario.inserir(user);
+               telaPrincipal.idUsuario = user.getCodigo();
+               telaPrincipal.jMenuPrincipal.setEnabled(true);
+               telaPrincipal.jlUsuario.setText(user.getNome());
+               this.dispose();
+            }else{
+                user.setCodigo(Integer.parseInt(jtfCodigo.getText()));
+                controllerUsuario.atualizar(user);
+            }
+            
         }
     }//GEN-LAST:event_jlbSalvarActionPerformed
 

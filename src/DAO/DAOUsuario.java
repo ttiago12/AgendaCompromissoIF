@@ -148,4 +148,33 @@ public class DAOUsuario extends DAOConexao{
 
         
     }
+    
+    //Metodo para atualizar os dados do usuario
+     public void atualizar (Usuario user){
+        conectar();
+
+        String sql = "UPDATE USUARIOS SET nomeUsuario = '" + user.getNome()+"',"
+                + "telefoneUsuario = '" + user.getTelefone()+ "', "
+                + "celularUsuario = '" + user.getCelular()+ "', "
+                + "emailUsuario = '" + user.getEmail()+ "', "
+                + "ruaUsuario = '" + user.getRua() + "', "
+                + "bairroUsuario = '" + user.getBairro() + "', "
+                + "numeroUsuario = '" + user.getNumero() + "', "
+                + "cepUsuario = '" + user.getCep()+ "', "
+                + "complementoUsuario = '" + user.getComplemento() + "', "
+                + "cpfUsuario = '" + user.getCpf() + "', "
+                + "senhaUsuario = '" + user.getSenha()+ "', "
+                + "idCidadeUsuario = '" + user.getCidade().getCodigo() + "' "
+                + "WHERE idUsuario = '" + user.getCodigo() + "';";
+        
+        try {
+            comando.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "DAdos do Usuário atualizado com sucesso!!!", "Mensagem do Sistema", 0);
+        } catch (SQLException ex) {
+            imprimirErros("Erro ao atualizar os dados do usuário. ", ex.getMessage());
+        } finally {
+            fechar ();
+        }
+    }
+    
 }

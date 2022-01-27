@@ -26,4 +26,8 @@ public class UsuarioController {
     public Usuario buscarUsuario(int codigo){
         return dao.buscarUsuario(codigo);
     }
+    
+    public void atualizar (Usuario user){
+        dao.atualizar(user);
+    }
 }
