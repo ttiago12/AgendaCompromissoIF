@@ -8,6 +8,7 @@ import MODEL.Compromisso;
 import MODEL.Usuario;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 
 /**
  *
@@ -48,40 +49,35 @@ public class DAOCompromisso extends DAOConexao{
 
         ResultSet rs;
 
-        String sql = "SELECT * FROM USUARIOS INNER JOIN CIDADES ON idCidadeUsuario = idCidade WHERE idUsuario = '" + codigo + "';";
+        String sql = "SELECT * FROM USUARIOS INNER JOIN USUARIO ON idCompromissoUsuario = idUsuario WHERE idCompromissoUsuario = '" + codigo + "';";
 
-        Usuario user = new Usuario();
+        Compromisso comp = new Compromisso();
         
         try {    
             rs = comando.executeQuery(sql);
             
             while (rs.next()) {            
-                user.setCodigo(rs.getInt("idUsuario"));
-                user.setNome(rs.getString("nomeUsuario"));
-                user.setTelefone(rs.getString("telefoneUsuario"));
-                user.setCelular(rs.getString("celularUsuario"));
-                user.setEmail(rs.getString("emailUsuario"));
-                user.setRua(rs.getString("ruaUsuario"));
-                user.setNumero(rs.getInt("numeroUsuario"));
-                user.setBairro(rs.getString("bairroUsuario"));
-                user.setCep(rs.getString("cepUsuario"));
-                user.setComplemento(rs.getString("complementoUsuario"));
-                user.setCpf(rs.getString("cpfUsuario"));
-                user.setSenha(rs.getString("senhaUsuario"));
+                comp.setCodigo(rs.getInt("idCompromisso"));
+                comp.setDataInicio(rs.getString("nomedataInicioCompromisso"));
+                comp.setDataTermino(rs.getString("dataInicioCompromisso"));
+                comp.setHoraInicio(rs.getString("horaInicioCompromisso"));
+                comp.setHoraTermino(rs.getString("horaFimCompromisso"));
+                comp.setLocal(rs.getString("localCompromisso"));
+                comp.setTitulo(rs.getString("tituloCompromisso"));
+                comp.setDescricao(rs.getString("descricaoCompromisso"));
                 
-                Cidade cid = new Cidade();
-                
-                cid.setCodigo(rs.getInt("idCidade"));
-                cid.setUf(rs.getString("ufCidade"));
-                cid.setNome(rs.getString("nomeCidade"));
-                
-                user.setCidade(cid);
+				
+		Usuario user = new Usuario();
+		user.setCodigo(rs.getInt("idCompromissoUsuario"));
+				
+		comp.setUsuario(user);
             }
             fechar();
             
-            return user;
+            return comp;
+            
         } catch (SQLException ex) {
-            imprimirErros("Erro ao buscar usuário pelo codigo", ex.getMessage());
+            imprimirErros("Erro ao buscar compromisso pelo codigo", ex.getMessage());
             fechar();
             
             return null;
