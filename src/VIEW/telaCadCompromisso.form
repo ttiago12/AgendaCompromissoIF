@@ -68,7 +68,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jtfDataInicio" min="-2" pref="87" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jtfDataHora" min="-2" pref="81" max="-2" attributes="0"/>
+                              <Component id="jtfHoraInicio" min="-2" pref="81" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -96,7 +96,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jtfDataInicio" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtfDataHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtfHoraInicio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jtfDataFinal" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -142,7 +142,7 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="jtfDataHora">
+    <Component class="javax.swing.JFormattedTextField" name="jtfHoraInicio">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="##:##;##" subtype="-1" type="5"/>

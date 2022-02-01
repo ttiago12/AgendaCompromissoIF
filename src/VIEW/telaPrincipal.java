@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import VIEW.telaCadCompromisso;
 
 /**
  *
@@ -241,7 +242,7 @@ public class telaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
        //instanciamos o objeto
-       telaCadCompromisso tela = new telaCadCompromisso();
+       telaCadCompromisso tela = new telaCadCompromisso(1, this.idUsuario, 0);
        tela.setVisible(true);
        jdpPrincipal.add(tela);
     }//GEN-LAST:event_jMenuItem3ActionPerformed

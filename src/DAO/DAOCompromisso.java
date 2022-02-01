@@ -43,13 +43,13 @@ public class DAOCompromisso extends DAOConexao{
                       
     }
     
-    //buscar compromisso
-    public Compromisso buscarCompromisso(int codigo){
+    //buscar compromisso pelo codigo 
+    public Compromisso buscarCompromisso(int codigo , int idCompromisso){
         conectar();
 
         ResultSet rs;
 
-        String sql = "SELECT * FROM USUARIOS INNER JOIN USUARIO ON idCompromissoUsuario = idUsuario WHERE idCompromissoUsuario = '" + codigo + "';";
+        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIO ON idCompromissoUsuario = idUsuario WHERE idCompromissoUsuario = '" + codigo + "'AND idCompromisso = '"+idCompromisso+"';";
 
         Compromisso comp = new Compromisso();
         
@@ -81,8 +81,31 @@ public class DAOCompromisso extends DAOConexao{
             fechar();
             
             return null;
-        }
-
-        
+        }       
     }
+    
+    // Método para atualizar os dados do compromisso
+    public void atualizar (Compromisso comp){
+        conectar();
+
+        String sql = "UPDATE COMPROMISSOS SET tituloCompromisso = '" + comp.getTitulo()
+                + "dataInicioCompromisso = '" + comp.getDataInicio()+ "', "
+                + "dataFimCompromisso = '" + comp.getDataTermino()+ "', "
+                + "horaInicioCompromisso = '" + comp.getHoraInicio()+ "', "
+                + "horaFimCompromisso = '" + comp.getHoraTermino()+ "', "
+                + "localCompromisso = '" + comp.getLocal()+ "', "
+                + "descricaoCompromisso = '" + comp.getDescricao()+ "', "
+                + "WHERE idCompromisso = '"+comp.getCodigo()+"';";
+                
+        
+        try {
+            comando.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Dados do compromisso atualizado com sucesso !!!", "Mensagem do Sistema", 0);
+        } catch (SQLException ex) {
+            imprimirErros("Erro ao atualizar os dados do compromisso. ", ex.getMessage());
+        } finally {
+            fechar ();
+        }
+    }
+
 }

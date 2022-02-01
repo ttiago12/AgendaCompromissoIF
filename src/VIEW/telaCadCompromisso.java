@@ -4,19 +4,72 @@
  */
 package VIEW;
 
+import CONTROLLER.CompromissoController;
+import MODEL.Compromisso;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 /**
  *
  * @author 
  */
 public class telaCadCompromisso extends javax.swing.JInternalFrame {
 
+    
+    private int idUsuario;
+    private int idCompromisso;
+    private int novoCompromisso;
+    
     /**
      * Creates new form telaCadCompromisso
      */
-    public telaCadCompromisso() {
+    public telaCadCompromisso(int novoCompromisso, int idUsuario, int idCompromisso) {
         initComponents();
+        
+        this.novoCompromisso = novoCompromisso;
+        this.idCompromisso = idCompromisso;
+        this.idUsuario = idUsuario; 
+        
+        if(this.novoCompromisso == 0){
+            CompromissoController controller = new CompromissoController();
+            Compromisso compromisso = controller.buscarCompromisso(idUsuario, idCompromisso);
+            
+            this.idCompromisso = compromisso.getCodigo();
+            jtaDescricao.setText(compromisso.getDescricao());
+            jtfDataFinal.setText(compromisso.getDataTermino());
+            jtfHoraInicio.setText(compromisso.getHoraInicio());
+            jtfHoraFinal.setText(compromisso.getHoraTermino());
+            jtfHoraInicio.setText(compromisso.getHoraInicio());
+            jtfLocal.setText(compromisso.getLocal());
+            jtfTitulo.setText(compromisso.getTitulo());
+            
+            
+            
+        }else{// inserir novo comprimisso
+            jtfDataInicio.setText(this.getDate());
+            jtfDataFinal.setText(this.getDate());
+            jtfHoraFinal.setText(this.getTime());
+            jtfHoraInicio.setText(this.getTime());
+            
+       
+        }
+        
     }
-
+    
+     public String getDate(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = new Date();
+        return dateFormat.format (data);
+        
+    }
+    
+    public String getTime(){
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        Date hora = new Date();
+        return dateFormat.format(hora);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,7 +83,7 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jtfTitulo = new javax.swing.JTextField();
         jtfDataInicio = new javax.swing.JFormattedTextField();
-        jtfDataHora = new javax.swing.JFormattedTextField();
+        jtfHoraInicio = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jtfDataFinal = new javax.swing.JFormattedTextField();
@@ -64,11 +117,11 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
         jtfDataInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
-            jtfDataHora.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##;##")));
+            jtfHoraInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##;##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jtfDataHora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtfHoraInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         jLabel4.setText("até");
         jLabel4.setToolTipText("até");
@@ -148,7 +201,7 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jtfDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtfDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jtfHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4)
                                 .addGap(28, 28, 28)
@@ -169,7 +222,7 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtfDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtfDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtfHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jtfDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,9 +271,9 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbCancelar;
     private javax.swing.JTextArea jtaDescricao;
     private javax.swing.JFormattedTextField jtfDataFinal;
-    private javax.swing.JFormattedTextField jtfDataHora;
     private javax.swing.JFormattedTextField jtfDataInicio;
     private javax.swing.JFormattedTextField jtfHoraFinal;
+    private javax.swing.JFormattedTextField jtfHoraInicio;
     private javax.swing.JTextField jtfLocal;
     private javax.swing.JTextField jtfTitulo;
     // End of variables declaration//GEN-END:variables
