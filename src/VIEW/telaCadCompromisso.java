@@ -6,9 +6,11 @@ package VIEW;
 
 import CONTROLLER.CompromissoController;
 import MODEL.Compromisso;
+import MODEL.Usuario;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -250,7 +252,36 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfHoraFinalActionPerformed
 
     private void JbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbSalvarActionPerformed
-        // TODO add your handling code here:
+      Compromisso comp = new Compromisso();
+      
+      comp.setDataTermino(jtfDataInicio.getText());
+      comp.setDataTermino(jtfDataFinal.getText());
+      comp.setDescricao(jtaDescricao.getText());
+      comp.setHoraInicio(jtfHoraInicio.getText());
+      comp.setHoraTermino(jtfHoraFinal.getText());
+      comp.setLocal(jtfLocal.getText());
+      comp.setTitulo(jtfTitulo.getText());
+      
+      Usuario user = new Usuario();
+      user.setCodigo(this.idUsuario);
+      
+      comp.setUsuario(user);
+      
+      //se o campo de titulo for vazio
+      if(jtfTitulo.getText().equals("")){
+          JOptionPane.showMessageDialog(null, "O campo título não pode ficar vazio");
+          jtfTitulo.setFocusable(true);
+      }else{//se nao tiver vazio
+          CompromissoController controller = new CompromissoController();
+          if(this.novoCompromisso == 0){
+              comp.setCodigo(this.idCompromisso);
+              controller.atualizar(comp);
+          }else{
+              controller.inserir(comp);
+              
+          }
+      }
+      this.dispose();
     }//GEN-LAST:event_JbSalvarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
