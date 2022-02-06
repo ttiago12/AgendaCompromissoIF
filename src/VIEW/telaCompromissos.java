@@ -4,19 +4,67 @@
  */
 package VIEW;
 
+import CONTROLLER.CompromissoController;
+import MODEL.Compromisso;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author 
  */
 public class telaCompromissos extends javax.swing.JInternalFrame {
 
+    //ajuda fazer pesquisa
+    
+    private int idUsuario;
+    DefaultTableModel tbCompromissos;
+    ArrayList<Compromisso> compromissos;
+    telaPrincipal telaPrincipal;
+    
     /**
      * Creates new form telaCompromissos
      */
-    public telaCompromissos() {
+    public telaCompromissos(int idUsuario , telaPrincipal tela) {
         initComponents();
+        
+        this.idUsuario = idUsuario;
+        this.telaPrincipal = tela;
+        
+        tbCompromissos =  (DefaultTableModel) jtbCompromissos.getModel();
+        
+        this.listarCompromissos(idUsuario,"","","");
     }
-
+    
+    //metodo responsavel por listar todos os compromissos do usuario
+    // Metodo responsavel por listar todos os compromisso do usuario
+     public void listarCompromissos(int idUsuario, String titulo, String  dataInicio, String dataTermino){     
+         CompromissoController controller = new CompromissoController();
+         
+         compromissos = controller.buscarCompromisso(idUsuario);
+         
+         this.removerLinhas();
+         
+         if(jrbTodos.isSelected()){
+           compromissos = controller.buscarCompromisso(idUsuario);   
+           
+         }else if(jrbTitulo.isSelected()){
+           compromissos = controller.buscarCompromisso(idUsuario, titulo);  
+         }else if(jrbData.isSelected()){
+             compromissos = controller.buscarCompromisso(idUsuario, dataInicio, dataTermino);
+         }
+         
+         for(Compromisso temp : compromissos){
+           tbCompromissos.addRow(new Object[]{temp.getCodigo(), temp.getTitulo(), temp.getDataInicio(), temp.getHoraInicio()});         
+        }
+     }
+    
+    public void removerLinhas(){
+         int linhas = tbCompromissos.getRowCount();
+         for (int i = linhas - 1; i >= 0; i--){
+             tbCompromissos.removeRow(i);
+         }
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,12 +84,13 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
         jtfDataInicial = new javax.swing.JFormattedTextField();
         jtfDataFinal = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jbPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtbCompromissos = new javax.swing.JTable();
         jbCancelar = new javax.swing.JButton();
         jbDeletar = new javax.swing.JButton();
         jbAlterar = new javax.swing.JButton();
+        jrbTodos = new javax.swing.JRadioButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -53,9 +102,19 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(jrbTitulo);
         jrbTitulo.setText("Titulo");
+        jrbTitulo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jrbTituloItemStateChanged(evt);
+            }
+        });
 
         buttonGroup1.add(jrbData);
         jrbData.setText("Data");
+        jrbData.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jrbDataItemStateChanged(evt);
+            }
+        });
         jrbData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jrbDataActionPerformed(evt);
@@ -64,6 +123,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Titulo: ");
 
+        jtfTitulo.setEnabled(false);
         jtfTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfTituloActionPerformed(evt);
@@ -78,6 +138,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
         jtfDataInicial.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtfDataInicial.setEnabled(false);
         jtfDataInicial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfDataInicialActionPerformed(evt);
@@ -90,6 +151,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
         jtfDataFinal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jtfDataFinal.setEnabled(false);
         jtfDataFinal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfDataFinalActionPerformed(evt);
@@ -98,10 +160,15 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Até");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Pesquisar.png"))); // NOI18N
-        jButton1.setText("Pesquisar Compromisso");
+        jbPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Pesquisar.png"))); // NOI18N
+        jbPesquisar.setText("Pesquisar Compromisso");
+        jbPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbPesquisarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtbCompromissos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -124,7 +191,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtbCompromissos);
 
         jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/cancelar.png"))); // NOI18N
         jbCancelar.setText("Cancelar");
@@ -145,47 +212,58 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonGroup1.add(jrbTodos);
+        jrbTodos.setSelected(true);
+        jrbTodos.setText("Todos");
+        jrbTodos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jrbTodosItemStateChanged(evt);
+            }
+        });
+        jrbTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(63, 63, 63))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbCancelar)
-                                .addGap(29, 29, 29)
-                                .addComponent(jbDeletar)
-                                .addGap(29, 29, 29)
-                                .addComponent(jbAlterar))
+                        .addComponent(jbCancelar)
+                        .addGap(29, 29, 29)
+                        .addComponent(jbDeletar)
+                        .addGap(29, 29, 29)
+                        .addComponent(jbAlterar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(6, 6, 6)
+                            .addComponent(jrbTodos)
+                            .addGap(18, 18, 18)
+                            .addComponent(jrbTitulo)
+                            .addGap(15, 15, 15)
+                            .addComponent(jrbData))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jrbTitulo)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jrbData))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel3))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jtfTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jtfDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(27, 27, 27)
-                                            .addComponent(jLabel4)
-                                            .addGap(33, 33, 33)
-                                            .addComponent(jtfDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(27, Short.MAX_VALUE))))
+                                    .addComponent(jtfDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(27, 27, 27)
+                                    .addComponent(jLabel4)
+                                    .addGap(33, 33, 33)
+                                    .addComponent(jtfDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jtfTitulo)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbPesquisar))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,8 +272,9 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jrbTitulo)
-                    .addComponent(jrbData))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jrbData)
+                    .addComponent(jrbTodos))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtfTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -206,7 +285,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(jtfDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jbPesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
@@ -214,7 +293,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
                     .addComponent(jbCancelar)
                     .addComponent(jbDeletar)
                     .addComponent(jbAlterar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -245,21 +324,68 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jbCancelarActionPerformed
 
+    private void jrbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbTodosActionPerformed
+        
+    }//GEN-LAST:event_jrbTodosActionPerformed
+
+    private void jrbTodosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jrbTodosItemStateChanged
+        if(jrbTodos.isSelected()){
+            jtfTitulo.setEnabled(false);
+            jtfDataFinal.setEnabled(false);
+            jtfDataInicial.setEnabled(false);
+            jtfTitulo.setText("");
+            jtfDataInicial.setText("");
+            jtfDataFinal.setText("");
+            
+        }
+    }//GEN-LAST:event_jrbTodosItemStateChanged
+
+    private void jrbTituloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jrbTituloItemStateChanged
+        // desativando campos caso o data estiver selecionado
+        if(jrbTitulo.isSelected()){
+            jtfTitulo.setEnabled(true);
+            jtfDataFinal.setEnabled(false);
+            jtfDataInicial.setEnabled(false);
+            jtfTitulo.setText("");
+            jtfDataInicial.setText("");
+            jtfDataFinal.setText("");
+        }
+    }//GEN-LAST:event_jrbTituloItemStateChanged
+
+    private void jrbDataItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jrbDataItemStateChanged
+        // desativando campos caso data estiver selecionado
+        if(jrbData.isSelected()){
+            jtfTitulo.setEnabled(false);
+            jtfDataFinal.setEnabled(true);
+            jtfDataInicial.setEnabled(true);
+            //limpacampos
+            jtfTitulo.setText("");
+            jtfDataInicial.setText("");
+            jtfDataFinal.setText("");
+        }
+    }//GEN-LAST:event_jrbDataItemStateChanged
+
+    private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
+       this.listarCompromissos(this.idUsuario, jtfTitulo.getText(), jtfDataInicial.getText(), jtfDataFinal.getText());;
+        
+    }//GEN-LAST:event_jbPesquisarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbDeletar;
+    private javax.swing.JButton jbPesquisar;
     private javax.swing.JRadioButton jrbData;
     private javax.swing.JRadioButton jrbTitulo;
+    private javax.swing.JRadioButton jrbTodos;
+    private javax.swing.JTable jtbCompromissos;
     private javax.swing.JFormattedTextField jtfDataFinal;
     private javax.swing.JFormattedTextField jtfDataInicial;
     private javax.swing.JTextField jtfTitulo;

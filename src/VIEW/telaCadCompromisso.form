@@ -71,9 +71,9 @@
                               <Component id="jtfHoraInicio" min="-2" pref="81" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="jtfDataFinal" min="-2" pref="79" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                              <Component id="jtfDataFinal" min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jtfHoraFinal" pref="57" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -161,8 +161,9 @@
     <Component class="javax.swing.JFormattedTextField" name="jtfDataFinal">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-          <Format format="##/##/##" subtype="-1" type="5"/>
+          <Format format="##/##/####" subtype="-1" type="5"/>
         </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="jtfHoraFinal">

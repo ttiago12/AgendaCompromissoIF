@@ -248,7 +248,7 @@ public class telaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         //instanciamos o objeto
-        telaCompromissos tela = new telaCompromissos();
+        telaCompromissos tela = new telaCompromissos(this.idUsuario , this);
         tela.setVisible(true);
         jdpPrincipal.add(tela);
     }//GEN-LAST:event_jMenuItem4ActionPerformed

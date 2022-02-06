@@ -49,7 +49,7 @@ public class DAOCompromisso extends DAOConexao{
 
         ResultSet rs;
 
-        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIO ON idUsuarioCompromisso = idUsuario "
+        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIOS ON idUsuarioCompromisso = idUsuario "
                 + "WHERE idUsuarioCompromisso = '" + codigo + "'AND idCompromisso = '"+idCompromisso+"';";
 
         Compromisso comp = new Compromisso();
@@ -59,7 +59,7 @@ public class DAOCompromisso extends DAOConexao{
             
             while (rs.next()) {            
                 comp.setCodigo(rs.getInt("idCompromisso"));
-                comp.setDataInicio(rs.getString("nomedataInicioCompromisso"));
+                comp.setDataInicio(rs.getString("dataInicioCompromisso"));
                 comp.setDataTermino(rs.getString("dataInicioCompromisso"));
                 comp.setHoraInicio(rs.getString("horaInicioCompromisso"));
                 comp.setHoraTermino(rs.getString("horaFimCompromisso"));
@@ -92,7 +92,7 @@ public class DAOCompromisso extends DAOConexao{
 
         ResultSet rs;
 
-        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIO ON idUsuarioCompromisso = idUsuario "
+        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIOS ON idUsuarioCompromisso = idUsuario "
                 + "WHERE idUsuarioCompromisso = '" + idUsuario+"';";
 
         ArrayList<Compromisso> compromissos = new ArrayList<>();
@@ -104,7 +104,7 @@ public class DAOCompromisso extends DAOConexao{
                 Compromisso comp = new Compromisso();
                 
                 comp.setCodigo(rs.getInt("idCompromisso"));
-                comp.setDataInicio(rs.getString("nomedataInicioCompromisso"));
+                comp.setDataInicio(rs.getString("dataInicioCompromisso"));
                 comp.setDataTermino(rs.getString("dataInicioCompromisso"));
                 comp.setHoraInicio(rs.getString("horaInicioCompromisso"));
                 comp.setHoraTermino(rs.getString("horaFimCompromisso"));
@@ -139,7 +139,7 @@ public class DAOCompromisso extends DAOConexao{
 
         ResultSet rs;
 
-        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN usuarios ON idUsuarioCompromisso = idUsuario  "
+        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIOS ON idUsuarioCompromisso = idUsuario  "
                 + "WHERE idUsuarioCompromisso = '" +idUsuario+"' AND tituloCompromisso LIKE '%"+titulo+"%' ;";
 
         ArrayList<Compromisso> compromissos = new ArrayList<Compromisso>();
@@ -185,7 +185,7 @@ public class DAOCompromisso extends DAOConexao{
         ResultSet rs;
 
         String sql = "SELECT * FROM COMPROMISSOS "
-                   + "INNER JOIN usuarios "
+                   + "INNER JOIN USUARIOS "
                    + "ON idUsuarioCompromisso = idUsuario "
                    + "WHERE idUsuarioCompromisso = '" + idUsuario + "' "
                    + "AND dataInicioCompromisso BETWEEN '" + dataInicio + "'AND '" + dataTermino +"';";

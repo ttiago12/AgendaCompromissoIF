@@ -125,10 +125,11 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
         jLabel4.setToolTipText("até");
 
         try {
-            jtfDataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/##")));
+            jtfDataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jtfDataFinal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
             jtfHoraFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
@@ -203,9 +204,9 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
                                 .addComponent(jtfHoraInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4)
-                                .addGap(28, 28, 28)
-                                .addComponent(jtfDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(22, 22, 22)
+                                .addComponent(jtfDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jtfHoraFinal, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)))
                         .addGap(12, 12, 12)))
                 .addContainerGap())
@@ -251,7 +252,7 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
     private void JbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JbSalvarActionPerformed
       Compromisso comp = new Compromisso();
       
-      comp.setDataTermino(jtfDataInicio.getText());
+      comp.setDataInicio(jtfDataInicio.getText());
       comp.setDataTermino(jtfDataFinal.getText());
       comp.setDescricao(jtaDescricao.getText());
       comp.setHoraInicio(jtfHoraInicio.getText());
