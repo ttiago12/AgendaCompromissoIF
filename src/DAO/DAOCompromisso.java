@@ -17,26 +17,28 @@ import java.sql.ResultSet;
 public class DAOCompromisso extends DAOConexao{
     
     //metodo responsavel por inserir os dados do compromisso
-    public void inserir(Compromisso Compromisso ){
+    public void inserir(Compromisso compromisso ){
         
             //conecta com o banco de dados
             conectar();
             
             //insere os dados no banco e dados
-            String sql =  "INSERT INTO COMPROMISSOS (tituloCompromisso, dataInicioCompromisso," + ""
+            String sql =  "INSERT INTO COMPROMISSOS (tituloCompromisso, dataInicioCompromisso," 
                 + " dataFimCompromisso, horaInicioCompromisso, horaFimCompromisso, localCompromisso,"
-                + "descricaoCompromisso, idUsuarioCompromisso) VALUES ('"  
-                + Compromisso.getTitulo()+ "', '" +Compromisso.getDataInicio()+ "', '" 
-                + Compromisso.getDataTermino() + "', '" + Compromisso.getHoraInicio() + "', '" 
-                + Compromisso.getHoraTermino() + "', '"
-                + Compromisso.getLocal()   + "', '" + Compromisso.getDescricao() 
-                + "', '" + Compromisso.getUsuario().getCodigo()+ "');";
+                + "descricaoCompromisso, idUsuarioCompromisso) VALUES "
+                   //EXEMPLO DE IN - VALUES ..."('"+valor+"','"+valor+"');";
+                + "('"+compromisso.getTitulo()+"','"+compromisso.getDataInicio()+"'," 
+                +"'"+compromisso.getDataTermino()+"','"+compromisso.getHoraInicio()+"'," 
+                +"'"+compromisso.getHoraTermino()+"','"+compromisso.getLocal()+"',"
+                +"'"+compromisso.getDescricao()+"', '"+compromisso.getUsuario().getCodigo()+"');"; 
+                
+                
                     
         try{           
             comando.executeUpdate(sql);
             JOptionPane.showMessageDialog(null,"COMPROMISSO CADASTRADO COM SUCESSO","mENSAGEM DO SISTEMA", 0);
         } catch (SQLException ex) {
-            imprimirErros("Erro ao compromisso", ex.getMessage());
+            imprimirErros("Erro ao cadastrar compromisso", ex.getMessage());
         }finally{
             fechar();
         }

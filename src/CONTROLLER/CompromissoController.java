@@ -19,8 +19,8 @@ public class CompromissoController {
     
     }
     
-    public void inserir(Compromisso Compromisso){
-       dao.inserir(Compromisso);
+    public void inserir(Compromisso compromisso){
+       dao.inserir(compromisso);
     }
     public Compromisso buscarCompromisso(int codigo, int idCompromisso){
         return dao.buscarCompromisso(codigo, idCompromisso);
