@@ -119,7 +119,7 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
         jtfDataInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         try {
-            jtfHoraInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##;##")));
+            jtfHoraInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -135,10 +135,11 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
         }
 
         try {
-            jtfHoraFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
+            jtfHoraFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jtfHoraFinal.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jtfHoraFinal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfHoraFinalActionPerformed(evt);
