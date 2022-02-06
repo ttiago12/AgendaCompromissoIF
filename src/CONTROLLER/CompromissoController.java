@@ -6,6 +6,7 @@ package CONTROLLER;
 
 import DAO.DAOCompromisso;
 import MODEL.Compromisso;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,5 +28,15 @@ public class CompromissoController {
     }
     public void atualizar (Compromisso comp){
         dao.atualizar(comp);
+    }
+    
+    public ArrayList<Compromisso> buscarCompromisso(int idUsuario){
+     return dao.buscarCompromisso(idUsuario);
+    }
+    public ArrayList<Compromisso> buscarCompromisso(int idUsuario, String titulo){
+        return dao.buscarCompromisso(idUsuario, titulo);
+    }
+    public ArrayList<Compromisso> buscarCompromisso(int idUsuario, String  dataInicio, String dataTermino){
+        return dao.buscarCompromisso(idUsuario, dataInicio, dataTermino);
     }
 }

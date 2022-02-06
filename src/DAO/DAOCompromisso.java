@@ -49,7 +49,8 @@ public class DAOCompromisso extends DAOConexao{
 
         ResultSet rs;
 
-        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIO ON idCompromissoUsuario = idUsuario WHERE idUsuarioCompromisso = '" + codigo + "'AND idCompromisso = '"+idCompromisso+"';";
+        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIO ON idUsuarioCompromisso = idUsuario "
+                + "WHERE idUsuarioCompromisso = '" + codigo + "'AND idCompromisso = '"+idCompromisso+"';";
 
         Compromisso comp = new Compromisso();
         
@@ -84,22 +85,24 @@ public class DAOCompromisso extends DAOConexao{
         }       
     }
     
-    //buscar todos os compromisso pelo codigo 
+    //buscar todos os compromisso de um determinado usuario
     //utilizando conceitos do polimorfismo
     public ArrayList<Compromisso> buscarCompromisso(int idUsuario){
         conectar();
 
         ResultSet rs;
 
-        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIO ON idCompromissoUsuario = idUsuario "
-                + "WHERE idCompromissoUsuario = '" + codigo + "'AND idCompromisso = '"+idCompromisso+"';";
+        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN USUARIO ON idUsuarioCompromisso = idUsuario "
+                + "WHERE idUsuarioCompromisso = '" + idUsuario+"';";
 
-        Compromisso comp = new Compromisso();
+        ArrayList<Compromisso> compromissos = new ArrayList<>();
         
         try {    
             rs = comando.executeQuery(sql);
             
-            while (rs.next()) {            
+            while (rs.next()) { 
+                Compromisso comp = new Compromisso();
+                
                 comp.setCodigo(rs.getInt("idCompromisso"));
                 comp.setDataInicio(rs.getString("nomedataInicioCompromisso"));
                 comp.setDataTermino(rs.getString("dataInicioCompromisso"));
@@ -111,13 +114,15 @@ public class DAOCompromisso extends DAOConexao{
                 
 				
 		Usuario user = new Usuario();
-		user.setCodigo(rs.getInt("idCompromissoUsuario"));
+		user.setCodigo(rs.getInt("idUsuarioCompromisso"));
 				
 		comp.setUsuario(user);
+                
+                compromissos.add(comp);
             }
-            fechar();
             
-            return comp;
+            fechar();       
+            return compromissos;
             
         } catch (SQLException ex) {
             imprimirErros("Erro ao buscar compromisso pelo codigo", ex.getMessage());
@@ -126,6 +131,101 @@ public class DAOCompromisso extends DAOConexao{
             return null;
         }       
     }
+    
+    //buscar todos os compromisso de um determinado usuario , pelo titulo
+    //utilizando conceitos do polimorfismo
+    public ArrayList<Compromisso> buscarCompromisso(int idUsuario , String titulo){
+        conectar();
+
+        ResultSet rs;
+
+        String sql = "SELECT * FROM COMPROMISSOS INNER JOIN usuarios ON idUsuarioCompromisso = idUsuario  "
+                + "WHERE idUsuarioCompromisso = '" +idUsuario+"' AND tituloCompromisso LIKE '%"+titulo+"%' ;";
+
+        ArrayList<Compromisso> compromissos = new ArrayList<Compromisso>();
+         
+        try {    
+            rs = comando.executeQuery(sql);
+            
+            while (rs.next()) {     
+                Compromisso comp = new Compromisso();
+                comp.setCodigo(rs.getInt("idCompromisso"));
+                comp.setDataInicio(rs.getString("dataInicioCompromisso"));
+                comp.setDataTermino(rs.getString("dataFimCompromisso"));
+                comp.setHoraInicio(rs.getString("horaInicioCompromisso"));
+                comp.setHoraTermino(rs.getString("horaFimCompromisso"));
+                comp.setLocal(rs.getString("localCompromisso"));
+                comp.setTitulo(rs.getString("tituloCompromisso"));
+                comp.setDescricao(rs.getString("descricaoCompromisso"));
+                
+                Usuario user = new Usuario();
+                user.setCodigo(rs.getInt("idUsuarioCompromisso"));
+                
+                comp.setUsuario(user);
+                
+                compromissos.add(comp);
+                
+            }
+            fechar();
+            return compromissos;
+            
+        } catch (SQLException ex) {
+            imprimirErros("Erro ao buscar o compromisso pelo código. ", ex.getMessage());
+            fechar();
+            
+            return null;
+        } 
+    }
+    
+    //buscar todos os compromisso de um determinado usuario , pela data
+    //utilizando conceitos do polimorfismo
+    public ArrayList<Compromisso> buscarCompromisso(int idUsuario , String dataInicio, String dataTermino){
+        conectar();
+
+        ResultSet rs;
+
+        String sql = "SELECT * FROM COMPROMISSOS "
+                   + "INNER JOIN usuarios "
+                   + "ON idUsuarioCompromisso = idUsuario "
+                   + "WHERE idUsuarioCompromisso = '" + idUsuario + "' "
+                   + "AND dataInicioCompromisso BETWEEN '" + dataInicio + "'AND '" + dataTermino +"';";
+
+        ArrayList<Compromisso> compromissos = new ArrayList<Compromisso>();
+         
+        try {    
+            rs = comando.executeQuery(sql);
+            
+            while (rs.next()) {     
+                Compromisso comp = new Compromisso();
+                comp.setCodigo(rs.getInt("idCompromisso"));
+                comp.setDataInicio(rs.getString("dataInicioCompromisso"));
+                comp.setDataTermino(rs.getString("dataFimCompromisso"));
+                comp.setHoraInicio(rs.getString("horaInicioCompromisso"));
+                comp.setHoraTermino(rs.getString("horaFimCompromisso"));
+                comp.setLocal(rs.getString("localCompromisso"));
+                comp.setTitulo(rs.getString("tituloCompromisso"));
+                comp.setDescricao(rs.getString("descricaoCompromisso"));
+                
+                Usuario user = new Usuario();
+                user.setCodigo(rs.getInt("idUsuarioCompromisso"));
+                
+                comp.setUsuario(user);
+                
+                compromissos.add(comp);
+                
+            }
+            fechar();
+            return compromissos;
+            
+        } catch (SQLException ex) {
+            imprimirErros("Erro ao buscar o compromisso pelo código. ", ex.getMessage());
+            fechar();
+            
+            return null;
+        } 
+    }
+    
+    
     // Método para atualizar os dados do compromisso
     public void atualizar (Compromisso comp){
         conectar();
