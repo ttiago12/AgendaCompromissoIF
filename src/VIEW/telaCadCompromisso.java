@@ -18,8 +18,7 @@ import javax.swing.JOptionPane;
  * @author 
  */
 public class telaCadCompromisso extends javax.swing.JInternalFrame {
-
-    
+   
     private int idUsuario;
     private int idCompromisso;
     private int novoCompromisso;
@@ -53,11 +52,8 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
             jtfDataInicio.setText(this.getDate());
             jtfDataFinal.setText(this.getDate());
             jtfHoraFinal.setText(this.getTime());
-            jtfHoraInicio.setText(this.getTime());
-            
-       
-        }
-        
+            jtfHoraInicio.setText(this.getTime());                 
+        }       
     }
     
      public String getDate(){

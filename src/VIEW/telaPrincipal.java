@@ -35,7 +35,6 @@ public class telaPrincipal extends javax.swing.JFrame {
         //chama os metodos de data e hora
         jlbDatahora.setText(this.getDate()+"---"+ this.getTime());
         
-        
         this.idUsuario = idUsuario;
         
         UsuarioController controller = new UsuarioController();
