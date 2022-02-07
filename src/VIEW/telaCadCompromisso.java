@@ -38,16 +38,14 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
             Compromisso compromisso = controller.buscarCompromisso(idUsuario, idCompromisso);
             
             this.idCompromisso = compromisso.getCodigo();
-            jtaDescricao.setText(compromisso.getDescricao());
-            jtfDataFinal.setText(compromisso.getDataTermino());
-            jtfHoraInicio.setText(compromisso.getHoraInicio());
+            jtfTitulo.setText(compromisso.getTitulo());
+            jtfDataInicio.setText(compromisso.getDataInicio());
+            jtfDataFinal.setText(compromisso.getDataTermino());           
             jtfHoraFinal.setText(compromisso.getHoraTermino());
             jtfHoraInicio.setText(compromisso.getHoraInicio());
             jtfLocal.setText(compromisso.getLocal());
-            jtfTitulo.setText(compromisso.getTitulo());
-            
-            
-            
+            jtaDescricao.setText(compromisso.getDescricao());                        
+                        
         }else{// inserir novo comprimisso
             jtfDataInicio.setText(this.getDate());
             jtfDataFinal.setText(this.getDate());
@@ -58,6 +56,7 @@ public class telaCadCompromisso extends javax.swing.JInternalFrame {
     
      public String getDate(){
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        
         Date data = new Date();
         return dateFormat.format (data);
         

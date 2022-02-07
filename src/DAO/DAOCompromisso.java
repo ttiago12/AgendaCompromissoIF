@@ -60,7 +60,7 @@ public class DAOCompromisso extends DAOConexao{
             while (rs.next()) {            
                 comp.setCodigo(rs.getInt("idCompromisso"));
                 comp.setDataInicio(rs.getString("dataInicioCompromisso"));
-                comp.setDataTermino(rs.getString("dataInicioCompromisso"));
+                comp.setDataTermino(rs.getString("dataFimCompromisso"));
                 comp.setHoraInicio(rs.getString("horaInicioCompromisso"));
                 comp.setHoraTermino(rs.getString("horaFimCompromisso"));
                 comp.setLocal(rs.getString("localCompromisso"));
@@ -69,20 +69,19 @@ public class DAOCompromisso extends DAOConexao{
                 
 				
 		Usuario user = new Usuario();
-		user.setCodigo(rs.getInt("idUsuarioCompromisso "));
+		user.setCodigo(rs.getInt("idUsuarioCompromisso"));
 				
 		comp.setUsuario(user);
             }
-            fechar();
-            
+            fechar();            
             return comp;
             
         } catch (SQLException ex) {
-            imprimirErros("Erro ao buscar compromisso pelo codigo", ex.getMessage());
+            imprimirErros("Erro ao buscar compromisso pelo codigo1", ex.getMessage());
             fechar();
             
             return null;
-        }       
+        }        
     }
     
     //buscar todos os compromisso de um determinado usuario
@@ -105,7 +104,7 @@ public class DAOCompromisso extends DAOConexao{
                 
                 comp.setCodigo(rs.getInt("idCompromisso"));
                 comp.setDataInicio(rs.getString("dataInicioCompromisso"));
-                comp.setDataTermino(rs.getString("dataInicioCompromisso"));
+                comp.setDataTermino(rs.getString("dataFimCompromisso"));
                 comp.setHoraInicio(rs.getString("horaInicioCompromisso"));
                 comp.setHoraTermino(rs.getString("horaFimCompromisso"));
                 comp.setLocal(rs.getString("localCompromisso"));
@@ -125,7 +124,7 @@ public class DAOCompromisso extends DAOConexao{
             return compromissos;
             
         } catch (SQLException ex) {
-            imprimirErros("Erro ao buscar compromisso pelo codigo", ex.getMessage());
+            imprimirErros("Erro ao buscar compromisso pelo codigo2", ex.getMessage());
             fechar();
             
             return null;
@@ -170,7 +169,7 @@ public class DAOCompromisso extends DAOConexao{
             return compromissos;
             
         } catch (SQLException ex) {
-            imprimirErros("Erro ao buscar o compromisso pelo código. ", ex.getMessage());
+            imprimirErros("Erro ao buscar o compromisso pelo código.3 ", ex.getMessage());
             fechar();
             
             return null;
@@ -218,7 +217,7 @@ public class DAOCompromisso extends DAOConexao{
             return compromissos;
             
         } catch (SQLException ex) {
-            imprimirErros("Erro ao buscar o compromisso pelo código. ", ex.getMessage());
+            imprimirErros("Erro ao buscar o compromisso pelo código.4 ", ex.getMessage());
             fechar();
             
             return null;
@@ -230,13 +229,13 @@ public class DAOCompromisso extends DAOConexao{
     public void atualizar (Compromisso comp){
         conectar();
 
-        String sql = "UPDATE COMPROMISSOS SET tituloCompromisso = '" + comp.getTitulo()
+            String sql = "UPDATE COMPROMISSOS SET tituloCompromisso = '" + comp.getTitulo() + "',"
                 + "dataInicioCompromisso = '" + comp.getDataInicio()+ "', "
                 + "dataFimCompromisso = '" + comp.getDataTermino()+ "', "
                 + "horaInicioCompromisso = '" + comp.getHoraInicio()+ "', "
                 + "horaFimCompromisso = '" + comp.getHoraTermino()+ "', "
                 + "localCompromisso = '" + comp.getLocal()+ "', "
-                + "descricaoCompromisso = '" + comp.getDescricao()+ "', "
+                + "descricaoCompromisso = '" + comp.getDescricao()+ "'"
                 + "WHERE idCompromisso = '"+comp.getCodigo()+"';";
                 
         
@@ -250,4 +249,18 @@ public class DAOCompromisso extends DAOConexao{
         }
     }
 
+    // Metodo para excluir um compromisso   
+    public  void apagar (int idCompromisso){
+        conectar();
+        
+        String sql = "DELETE FROM COMPROMISSOS WHERE idCompromisso = '"+idCompromisso+"'";
+        try {
+            comando.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Compromisso deletado com sucesso");
+        } catch (SQLException e ){
+            imprimirErros("Erro ao deletar o compromisso", e.getMessage());
+        } finally{
+           fechar(); 
+        }
+    }
 }

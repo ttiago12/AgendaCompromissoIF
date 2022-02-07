@@ -39,4 +39,7 @@ public class CompromissoController {
     public ArrayList<Compromisso> buscarCompromisso(int idUsuario, String  dataInicio, String dataTermino){
         return dao.buscarCompromisso(idUsuario, dataInicio, dataTermino);
     }
+    public  void apagar (int idCompromisso){
+        dao.apagar(idCompromisso);
+    }
 }

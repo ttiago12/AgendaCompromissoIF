@@ -7,6 +7,7 @@ package VIEW;
 import CONTROLLER.CompromissoController;
 import MODEL.Compromisso;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -84,7 +85,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
         jtfDataInicial = new javax.swing.JFormattedTextField();
         jtfDataFinal = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        jbPesquisar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbCompromissos = new javax.swing.JTable();
         jbCancelar = new javax.swing.JButton();
@@ -160,13 +161,8 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Até");
 
-        jbPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Pesquisar.png"))); // NOI18N
-        jbPesquisar.setText("Pesquisar Compromisso");
-        jbPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbPesquisarActionPerformed(evt);
-            }
-        });
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Pesquisar.png"))); // NOI18N
+        jButton1.setText("Pesquisar Compromisso");
 
         jtbCompromissos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -203,6 +199,11 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
 
         jbDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/excluir.png"))); // NOI18N
         jbDeletar.setText("Deletar");
+        jbDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDeletarActionPerformed(evt);
+            }
+        });
 
         jbAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/alterar.png"))); // NOI18N
         jbAlterar.setText("Alterar");
@@ -262,7 +263,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
                                     .addComponent(jtfDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jtfTitulo)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jbPesquisar))
+                    .addComponent(jButton1))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -285,7 +286,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel4)
                     .addComponent(jtfDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jbPesquisar)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
@@ -317,6 +318,12 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
         // TODO add your handling code here:
+        int idCompromisso = Integer.parseInt(jtbCompromissos.getValueAt(jtbCompromissos.getSelectedRow(), 0).toString());
+        
+        telaCadCompromisso tela = new telaCadCompromisso(0, this.idUsuario, idCompromisso);
+        tela.setVisible(true);
+        this.telaPrincipal.jdpPrincipal.add(tela);
+        this.dispose();
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
@@ -341,7 +348,7 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jrbTodosItemStateChanged
 
     private void jrbTituloItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jrbTituloItemStateChanged
-        // desativando campos caso o data estiver selecionado
+        // desativando campos caso o titulo estiver selecionado
         if(jrbTitulo.isSelected()){
             jtfTitulo.setEnabled(true);
             jtfDataFinal.setEnabled(false);
@@ -353,26 +360,32 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jrbTituloItemStateChanged
 
     private void jrbDataItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jrbDataItemStateChanged
-        // desativando campos caso data estiver selecionado
+        // TODO add your handling code here:
         if(jrbData.isSelected()){
             jtfTitulo.setEnabled(false);
             jtfDataFinal.setEnabled(true);
             jtfDataInicial.setEnabled(true);
-            //limpacampos
             jtfTitulo.setText("");
             jtfDataInicial.setText("");
             jtfDataFinal.setText("");
         }
     }//GEN-LAST:event_jrbDataItemStateChanged
 
-    private void jbPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarActionPerformed
-       this.listarCompromissos(this.idUsuario, jtfTitulo.getText(), jtfDataInicial.getText(), jtfDataFinal.getText());;
-        
-    }//GEN-LAST:event_jbPesquisarActionPerformed
+    private void jbDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarActionPerformed
+        // TODO add your handling code here:
+         int opcao = JOptionPane.showConfirmDialog(null,"Deseja realmente excluir este compromisso?", 
+                "Mensagem do sistema", JOptionPane.INFORMATION_MESSAGE);
+        if(opcao == 0) {
+            CompromissoController controller = new CompromissoController();
+            controller.apagar(idUsuario);
+            tbCompromissos.removeRow(jtbCompromissos.getSelectedRow());
+        }
+    }//GEN-LAST:event_jbDeletarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -381,7 +394,6 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbDeletar;
-    private javax.swing.JButton jbPesquisar;
     private javax.swing.JRadioButton jrbData;
     private javax.swing.JRadioButton jrbTitulo;
     private javax.swing.JRadioButton jrbTodos;
