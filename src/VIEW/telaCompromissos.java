@@ -6,6 +6,7 @@ package VIEW;
 
 import CONTROLLER.CompromissoController;
 import MODEL.Compromisso;
+import REPORTS.RelatorioCompromissos;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -395,7 +396,16 @@ public class telaCompromissos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbDeletarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        
+       RelatorioCompromissos relatorio = new RelatorioCompromissos();
+       if(jrbData.isSelected()){
+           relatorio.previewCompromissos(idUsuario, jtfDataInicial.getText(), jtfDataFinal.getText());
+       }else if (jrbTitulo.isSelected()){
+           relatorio.previewCompromissos(idUsuario, jtfTitulo.getText());
+       }else if (jrbTodos.isSelected()){
+           relatorio.previewCompromissos(idUsuario);
+       }
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

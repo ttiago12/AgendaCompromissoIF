@@ -51,9 +51,41 @@ public class RelatorioCompromissos extends DAOConexao{
 	}
     }
     
-    public void previewCompromissos(int idUsuario , int titulo){
+    public void previewCompromissos(int idUsuario ,String titulo){
 	String sql =  "SELECT * FROM compromissos WHERE idUsuarioCompromisso = '"+idUsuario+"'"
-                +"AND tituloCompromisso = '"+titulo+"';";
+                +"AND tituloCompromisso LIKE '"+titulo+"%';";
+                
+	
+	String reportSource = ".src/REPORTS/compromissos.reportcompomissos.jrxml";
+	String reportSourceJasper = ".src/REPORTS/reportcompomissos.jasper";
+	String reportSourcePrint = ".src/REPORTS/reportcompomissos.jrprint";
+	
+        
+        
+	try{
+                JasperCompileManager.compileReportToFile(reportSource);
+		JasperCompileManager.compileReportToFile(reportSource);
+		Map <String, Object> params = new HashMap <String, Object>();
+		conectar();
+		ResultSet rs  = comando.executeQuery(sql);
+                JRResultSetDataSource jrRS = new JRResultSetDataSource(rs);
+		JasperFillManager.fillReportToFile(reportSourceJasper, params , jrRS);
+		JasperViewer.viewReport(reportSourcePrint, false , false);
+	}catch(SQLException ex){
+		JOptionPane.showMessageDialog(null, "ERRO AO BUSCAR TODOS OS COMPROMISSOS DO USUARIO."+ex.getMessage());
+	}catch (JRException ex){
+                JOptionPane.showMessageDialog(null, "ERRO AO EMITIR O RELATORIO DE TODOS OS COMPROMISSOS"
+                    +"DO USUARIO"+ex.getMessage());
+        }finally{
+            fechar();
+	
+	}
+    }
+    
+    public void previewCompromissos(int idUsuario , String dataInicio , String dataTermino){
+	
+        String sql =  "SELECT * FROM compromissos WHERE idUsuarioCompromisso = '"+idUsuario+"'"
+                +"AND dataInicioCompromisso BETWEEN  '"+dataInicio+"' AND '"+dataTermino+"'";
                 
 	
 	String reportSource = ".src/REPORTS/compromissos.reportcompomissos.jrxml";
