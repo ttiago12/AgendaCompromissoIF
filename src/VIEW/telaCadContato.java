@@ -7,7 +7,7 @@ package VIEW;
 import CONTROLLER.CidadeController;
 import CONTROLLER.UsuarioController;
 import MODEL.Cidade;
-import MODEL.CONTATO;
+import MODEL.Contato;
 import MODEL.Usuario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

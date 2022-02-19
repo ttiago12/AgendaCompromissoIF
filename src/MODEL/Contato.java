@@ -8,7 +8,7 @@ package MODEL;
  *
  * @author 
  */
-public class CONTATO extends Pessoa {
+public class Contato extends Pessoa {
     private String observacoes;
     private Usuario usuario;
 

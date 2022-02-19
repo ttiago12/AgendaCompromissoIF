@@ -6,7 +6,7 @@ package CONTROLLER;
 
 import DAO.DAOContato;
 import MODEL.Usuario;
-import MODEL.CONTATO;
+import MODEL.Contato;
 import java.util.ArrayList;
 
 /**
@@ -21,11 +21,11 @@ public class ContatoController {
     }
     
     public void inserir(Contato contato){
-        dao.inserir(Contato);
+        dao.inserir(contato);
     }
     
     public Contato apagarContato(int idContato){
-        return dao.verificarContato(idContato);
+        return dao.buscarContato(idContato);
     }
     
 	 public void atualizar (Contato contato){

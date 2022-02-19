@@ -4,11 +4,13 @@
  */
 package DAO;
 
-import MODEL.CONTATO;
+import MODEL.Contato;
 import MODEL.Cidade;
 import MODEL.Usuario;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.sql.ResultSet;
 
 /**
  *
@@ -16,7 +18,7 @@ import java.sql.SQLException;
  */
 public class DAOContato extends DAOConexao{
     
-    public void inserir(CONTATO contato ){  
+    public void inserir(Contato contato ){  
 
         conectar();
 			
@@ -28,7 +30,7 @@ public class DAOContato extends DAOConexao{
         + "'"+contato.getEmail()+"','"+contato.getRua()+"','"+contato.getBairro()+"',"
         + "'"+contato.getNumero()+"', '"+contato.getCep()+"','"+contato.getComplemento()+"',"
         + "'"+contato.getObservacoes()+"','"+contato.getCidade().getCodigo()+"', "
-        + "'"+contato.getNome()+"','"+contato.getUsuario()+"');";
+        + "'"+contato.getUsuario().getCodigo()+"',);";
        
         try {    
             comando.executeUpdate(sql);
@@ -38,5 +40,100 @@ public class DAOContato extends DAOConexao{
         }finally{
             fechar();
         }     
+    }
+    
+    public void atualizar (Contato cont){
+        conectar();
+
+            String sql = "UPDATE CONTATOS SET nomeContato = '"+cont.getNome()+"',"
+            + "telefoneContato = '"+cont.getNome()+"',"
+            + "celularContato = '"+cont.getCelular()+"',"
+            + "emailContato = '"+cont.getEmail()+"',"
+            + "ruaContato = '"+cont.getRua()+"',"
+            + "bairroContato = '"+cont.getBairro()+"',"
+            + "numeroContato = '"+cont.getNumero()+"',"
+            + "cepContato = '"+cont.getCep()+"',"
+            + "complementoContato = '"+cont.getComplemento()+"'," 
+            + "obsContato = '"+cont.getObservacoes()+"',"
+            + "WHERE idContato = '"+cont.getCodigo()+"'";
+                
+        
+        try {
+            comando.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Dados do CONTATO atualizado com sucesso !!!", "Mensagem do Sistema", 0);
+        } catch (SQLException ex) {
+            imprimirErros("Erro ao atualizar os dados do CONTATO. ", ex.getMessage());
+        } finally {
+            fechar ();
+        }
+    }
+    
+    //buscar todos os contatos de um determinado usuario
+    //utilizando conceitos do polimorfismo
+    public ArrayList<Contato> buscarContato(int idUsuario){
+        conectar();
+
+        ResultSet rs;
+
+        String sql = "SELECT * FROM CONTATOS INNER JOIN USUARIOS ON idUsuarioContato = idContato "
+                + "WHERE idUsuarioContato = '" + idUsuario+"';";
+
+        ArrayList<Contato> contato = new ArrayList<>();
+        
+        try {    
+            rs = comando.executeQuery(sql);
+            
+            while (rs.next()) { 
+                Contato cont = new Contato();
+                              
+				
+		cont.setCodigo(rs.getInt("idContato"));
+		cont.setNome(rs.getString("nomeContato"));
+                cont.setTelefone(rs.getString("telefoneContato"));
+                cont.setCelular(rs.getString("celularContato"));
+                cont.setEmail(rs.getString("emailContato"));
+                cont.setRua(rs.getString("ruaContato"));
+                cont.setBairro(rs.getString("bairroContato"));
+                cont.setObservacoes(rs.getString("obsContato"));
+               
+				
+		Cidade cid = new Cidade();
+                
+                cid.setCodigo(rs.getInt("idCidade"));
+                cid.setUf(rs.getString("ufCidade"));
+                cid.setNome(rs.getString("nomeCidade"));
+                
+                Usuario user = new Usuario();
+                user.setCodigo(rs.getInt("idUsuarioContato"));
+        
+                cont.setUsuario(user);
+                contato.add(cont);
+            }
+            fechar();
+            return contato;
+            
+            } catch (SQLException ex) {
+            imprimirErros("Erro ao buscar conato pelo usuario", ex.getMessage());
+            fechar();
+            
+            return null;
+            }
+    }
+            
+            
+    
+     // Metodo para excluir um contato  
+    public  void apagar (int idContato){
+        conectar();
+        
+        String sql = "DELETE FROM CONTATOS WHERE idContato = '"+idContato+"'";
+        try {
+            comando.executeUpdate(sql);
+            JOptionPane.showMessageDialog(null, "Contato deletado com sucesso");
+        } catch (SQLException e ){
+            imprimirErros("Erro ao deletar o Contato", e.getMessage());
+        } finally{
+           fechar(); 
+        }
     }
 }
