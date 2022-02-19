@@ -42,20 +42,20 @@ public class DAOContato extends DAOConexao{
         }     
     }
     
-    public void atualizar (Contato cont){
+    public void atualizar (Contato contato){
         conectar();
 
-            String sql = "UPDATE CONTATOS SET nomeContato = '"+cont.getNome()+"',"
-            + "telefoneContato = '"+cont.getNome()+"',"
-            + "celularContato = '"+cont.getCelular()+"',"
-            + "emailContato = '"+cont.getEmail()+"',"
-            + "ruaContato = '"+cont.getRua()+"',"
-            + "bairroContato = '"+cont.getBairro()+"',"
-            + "numeroContato = '"+cont.getNumero()+"',"
-            + "cepContato = '"+cont.getCep()+"',"
-            + "complementoContato = '"+cont.getComplemento()+"'," 
-            + "obsContato = '"+cont.getObservacoes()+"',"
-            + "WHERE idContato = '"+cont.getCodigo()+"'";
+            String sql = "UPDATE CONTATOS SET nomeContato = '"+contato.getNome()+"',"
+            + "telefoneContato = '"+contato.getNome()+"',"
+            + "celularContato = '"+contato.getCelular()+"',"
+            + "emailContato = '"+contato.getEmail()+"',"
+            + "ruaContato = '"+contato.getRua()+"',"
+            + "bairroContato = '"+contato.getBairro()+"',"
+            + "numeroContato = '"+contato.getNumero()+"',"
+            + "cepContato = '"+contato.getCep()+"',"
+            + "complementoContato = '"+contato.getComplemento()+"'," 
+            + "obsContato = '"+contato.getObservacoes()+"',"
+            + "WHERE idContato = '"+contato.getCodigo()+"'";
                 
         
         try {
@@ -70,13 +70,13 @@ public class DAOContato extends DAOConexao{
     
     //buscar todos os contatos de um determinado usuario
     //utilizando conceitos do polimorfismo
-    public ArrayList<Contato> buscarContato(int idUsuario){
+    public ArrayList<Contato> buscarContato(int idContato){
         conectar();
 
         ResultSet rs;
 
         String sql = "SELECT * FROM CONTATOS INNER JOIN USUARIOS ON idUsuarioContato = idContato "
-                + "WHERE idUsuarioContato = '" + idUsuario+"';";
+                + "WHERE idUsuarioContato = '" + idContato+"';";
 
         ArrayList<Contato> contato = new ArrayList<>();
         
@@ -84,17 +84,17 @@ public class DAOContato extends DAOConexao{
             rs = comando.executeQuery(sql);
             
             while (rs.next()) { 
-                Contato cont = new Contato();
+                Contato contato = new Contato();
                               
 				
-		cont.setCodigo(rs.getInt("idContato"));
-		cont.setNome(rs.getString("nomeContato"));
-                cont.setTelefone(rs.getString("telefoneContato"));
-                cont.setCelular(rs.getString("celularContato"));
-                cont.setEmail(rs.getString("emailContato"));
-                cont.setRua(rs.getString("ruaContato"));
-                cont.setBairro(rs.getString("bairroContato"));
-                cont.setObservacoes(rs.getString("obsContato"));
+		contato.setCodigo(rs.getInt("idContato"));
+		contato.setNome(rs.getString("nomeContato"));
+                contato.setTelefone(rs.getString("telefoneContato"));
+                contato.setCelular(rs.getString("celularContato"));
+                contato.setEmail(rs.getString("emailContato"));
+                contato.setRua(rs.getString("ruaContato"));
+                contato.setBairro(rs.getString("bairroContato"));
+                contato.setObservacoes(rs.getString("obsContato"));
                
 				
 		Cidade cid = new Cidade();
@@ -106,8 +106,8 @@ public class DAOContato extends DAOConexao{
                 Usuario user = new Usuario();
                 user.setCodigo(rs.getInt("idUsuarioContato"));
         
-                cont.setUsuario(user);
-                contato.add(cont);
+                contato.setUsuario(user);
+                contato.add(contato);
             }
             fechar();
             return contato;

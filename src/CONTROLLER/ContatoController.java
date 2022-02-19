@@ -24,23 +24,23 @@ public class ContatoController {
         dao.inserir(contato);
     }
     
-    public Contato apagarContato(int idContato){
+    /*public Contato apagarContato(int idContato){
         return dao.buscarContato(idContato);
-    }
+    }*/
     
 	 public void atualizar (Contato contato){
         dao.atualizar(contato);
     }
 	
-    public Contato buscarContato(int idContato){
+    /*public Contato buscarContato(int idContato){
         return dao.buscarContato(codigo);
-    }
+    }*/
 	
-	 public ArrayList<Contato> buscarContatos(int idUsuario){
-        return dao.buscarContato(idUsuario);
+	 public ArrayList<Contato> buscarContatos(int idContato){
+        return dao.buscarContato(idContato);
     }
     
-	 public ArrayList<Contato> buscarContatos(int idUsuario , String nome){
+	/* public ArrayList<Contato> buscarContatos(int idUsuario , String nome){
         return dao.buscarContato(idUsuario,nome);
-    }
+    }*/
 }
