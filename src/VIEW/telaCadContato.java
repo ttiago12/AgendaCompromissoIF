@@ -5,11 +5,7 @@
 package VIEW;
 
 import CONTROLLER.CidadeController;
-import CONTROLLER.UsuarioController;
-import CONTROLLER.ContatoController;
 import MODEL.Cidade;
-import MODEL.Contato;
-import MODEL.Usuario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -18,41 +14,12 @@ import javax.swing.JOptionPane;
  * @author 
  */
 public class telaCadContato extends javax.swing.JInternalFrame {
-    
-    public telaPrincipal telaPrincipal;
-    private int contatoNovo;
+
     /**
      * Creates new form telaCadContato
      */
     public telaCadContato() {
         initComponents();
-        
-        
-        this.telaPrincipal = telaPrincipal;
-        this.contatoNovo = contatoNovo;
-        
-        
-        if(contatoNovo == 0){
-            ContatoController controller = new ContatoController();
-            Contato cont = controller.buscarContatos(contatoNovo);
-            
-            jtfNome.setText(cont.getNome());
-            jtfEmail.setText(cont.getEmail());
-            jtfTelefone.setText(cont.getTelefone());
-            jtfCelular.setText(cont.getCelular());
-            jtfRua.setText(cont.getRua());
-            jtfBairro.setText(cont.getBairro());
-            jtfCEP.setText(cont.getCep());
-            jtfNumero.setText(Integer.toString(cont.getNumero()));
-            jtfComplemento.setText(cont.getComplemento());
-            jtaObservacao.setText(cont.getObservacoes());
-            
-            
-            
-            
-            jcbUF.setSelectedItem(cont.getCidade().getUf());
-            jcbCidade.setSelectedItem(cont.getCidade().getNome());
-        }
     }
     
     public void listarCidades(String uf){
@@ -223,11 +190,6 @@ public class telaCadContato extends javax.swing.JInternalFrame {
 
         jcbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Entrar.png"))); // NOI18N
         jcbSalvar.setText("SALVAR");
-        jcbSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbSalvarActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -371,31 +333,6 @@ public class telaCadContato extends javax.swing.JInternalFrame {
         String uf = jcbUF.getSelectedItem().toString();
         this.listarCidades(uf);
     }//GEN-LAST:event_jcbUFItemStateChanged
-
-    private void jcbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSalvarActionPerformed
-        // TODO add your handling code here:
-        Contato cont = new Contato();
-                              
-				
-	cont.setCodigo(rs.getInt("idContato"));
-	cont.setNome(rs.getString("nomeContato"));
-        cont.setTelefone(rs.getString("telefoneContato"));
-        cont.setCelular(rs.getString("celularContato"));
-        cont.setEmail(rs.getString("emailContato"));
-        cont.setRua(rs.getString("ruaContato"));
-        cont.setBairro(rs.getString("bairroContato"));
-        cont.setObservacoes(rs.getString("obsContato"));
-       
-        Usuario user = new Usuario();
-        user.setCodigo(this.idUsuario);
-        
-        cont.getUsuario(user);
-        
-        
-                
-       
-        
-    }//GEN-LAST:event_jcbSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
