@@ -42,6 +42,56 @@ public class DAOContato extends DAOConexao{
         }     
     }
     
+    public Contato buscarContato(int codigo){
+        conectar();
+
+        ResultSet rs;
+
+        String sql = "SELECT * FROM CONTATOS INNER JOIN USUARIOS ON idUsuarioContato = idContato "
+                + "WHERE idUsuarioContato = '" + codigo +"';";
+
+        Contato cont = new Contato();
+        
+        try {    
+            
+            rs = comando.executeQuery(sql);
+            
+            while (rs.next()) { 
+                                            
+				
+		cont.setCodigo(rs.getInt("idContato"));
+		cont.setNome(rs.getString("nomeContato"));
+                cont.setTelefone(rs.getString("telefoneContato"));
+                cont.setCelular(rs.getString("celularContato"));
+                cont.setEmail(rs.getString("emailContato"));
+                cont.setRua(rs.getString("ruaContato"));
+                cont.setBairro(rs.getString("bairroContato"));
+                cont.setObservacoes(rs.getString("obsContato"));
+               
+				
+		Cidade cid = new Cidade();
+                
+                cid.setCodigo(rs.getInt("idCidade"));
+                cid.setUf(rs.getString("ufCidade"));
+                cid.setNome(rs.getString("nomeCidade"));
+                
+                Usuario user = new Usuario();
+                user.setCodigo(rs.getInt("idUsuarioContato"));
+        
+                cont.setUsuario(user);
+                
+            }
+            fechar();
+            return cont;
+            
+            } catch (SQLException ex) {
+            imprimirErros("Erro ao buscar conato pelo usuario", ex.getMessage());
+            fechar();
+            
+            return null;
+            }
+    }
+    
     public void atualizar (Contato contato){
         conectar();
 
@@ -70,13 +120,13 @@ public class DAOContato extends DAOConexao{
     
     //buscar todos os contatos de um determinado usuario
     //utilizando conceitos do polimorfismo
-    public ArrayList<Contato> buscarContato(int idContato){
+    public ArrayList<Contato> buscarContatos(int idUsuario){
         conectar();
 
         ResultSet rs;
 
         String sql = "SELECT * FROM CONTATOS INNER JOIN USUARIOS ON idUsuarioContato = idContato "
-                + "WHERE idUsuarioContato = '" + idContato+"';";
+                + "WHERE idUsuarioContato = '" + idUsuario+"';";
 
         ArrayList<Contato> contato = new ArrayList<>();
         
@@ -84,17 +134,17 @@ public class DAOContato extends DAOConexao{
             rs = comando.executeQuery(sql);
             
             while (rs.next()) { 
-                Contato contato = new Contato();
+                Contato cont = new Contato();
                               
 				
-		contato.setCodigo(rs.getInt("idContato"));
-		contato.setNome(rs.getString("nomeContato"));
-                contato.setTelefone(rs.getString("telefoneContato"));
-                contato.setCelular(rs.getString("celularContato"));
-                contato.setEmail(rs.getString("emailContato"));
-                contato.setRua(rs.getString("ruaContato"));
-                contato.setBairro(rs.getString("bairroContato"));
-                contato.setObservacoes(rs.getString("obsContato"));
+		cont.setCodigo(rs.getInt("idContato"));
+		cont.setNome(rs.getString("nomeContato"));
+                cont.setTelefone(rs.getString("telefoneContato"));
+                cont.setCelular(rs.getString("celularContato"));
+                cont.setEmail(rs.getString("emailContato"));
+                cont.setRua(rs.getString("ruaContato"));
+                cont.setBairro(rs.getString("bairroContato"));
+                cont.setObservacoes(rs.getString("obsContato"));
                
 				
 		Cidade cid = new Cidade();
@@ -106,8 +156,8 @@ public class DAOContato extends DAOConexao{
                 Usuario user = new Usuario();
                 user.setCodigo(rs.getInt("idUsuarioContato"));
         
-                contato.setUsuario(user);
-                contato.add(contato);
+                cont.setUsuario(user);
+                contato.add(cont);
             }
             fechar();
             return contato;

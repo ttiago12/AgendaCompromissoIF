@@ -5,7 +5,6 @@
 package CONTROLLER;
 
 import DAO.DAOContato;
-import MODEL.Usuario;
 import MODEL.Contato;
 import java.util.ArrayList;
 
@@ -32,12 +31,12 @@ public class ContatoController {
         dao.atualizar(contato);
     }
 	
-    /*public Contato buscarContato(int idContato){
-        return dao.buscarContato(codigo);
-    }*/
-	
-	 public ArrayList<Contato> buscarContatos(int idContato){
+    public Contato buscarContato(int idContato){
         return dao.buscarContato(idContato);
+    }
+	
+	 public ArrayList<Contato> buscarContatos(int idUsuario){
+        return dao.buscarContatos(idUsuario);
     }
     
 	/* public ArrayList<Contato> buscarContatos(int idUsuario , String nome){

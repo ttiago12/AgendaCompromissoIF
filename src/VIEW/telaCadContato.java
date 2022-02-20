@@ -190,6 +190,11 @@ public class telaCadContato extends javax.swing.JInternalFrame {
 
         jcbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/IMAGES/Entrar.png"))); // NOI18N
         jcbSalvar.setText("SALVAR");
+        jcbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -333,6 +338,10 @@ public class telaCadContato extends javax.swing.JInternalFrame {
         String uf = jcbUF.getSelectedItem().toString();
         this.listarCidades(uf);
     }//GEN-LAST:event_jcbUFItemStateChanged
+
+    private void jcbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbSalvarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
